@@ -11,6 +11,7 @@ export default class Nearby extends Component {
     this.state = {
       stops: [],
       arrivals: [],
+      activeStop: {}
     };
 
     this.onMarkerClick = this.onMarkerClick.bind(this);
@@ -26,8 +27,9 @@ export default class Nearby extends Component {
       .catch(err => {console.log(err)});
   };
 
-  onMarkerClick(id) {
-    axios.get(`/api/stops/${id}/arrivals`)
+  onMarkerClick(stop) {
+    this.setState({ activeStop: stop });
+    axios.get(`/api/stops/${stop.id}/arrivals`)
       .then(response => {
         console.log(response);
         this.setState({
@@ -38,10 +40,10 @@ export default class Nearby extends Component {
   }
 
   render() {
-    const { stops, arrivals } = this.state;
+    const { stops, arrivals, activeStop } = this.state;
     return (
       <div className="Nearby">
-        <Stop arrivals={arrivals} />
+        <Stop arrivals={arrivals} stop={ activeStop }/>
         <div className="map">
           <Map
             stops={stops}

@@ -2,4 +2,16 @@
   width: 100%;
   display: flex;
   align-items: center;
+  padding: 15px 0;
+}
+
+.Arrival h3 {
+  font-weight: 300;
+  width: 22%;
+  text-align: center;
+}
+
+.Arrival h4 {
+  font-size: 12px;
+  color: #333;
 }

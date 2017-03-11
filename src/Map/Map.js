@@ -24,7 +24,7 @@ export default function Map(props) {
               return (
                 <Marker
                   position={{lat: stop.lat, lng: stop.lon}}
-                  onClick={() => onMarkerClick(stop.id)}
+                  onClick={() => onMarkerClick(stop)}
                   key={stop.id}
                 />
               );

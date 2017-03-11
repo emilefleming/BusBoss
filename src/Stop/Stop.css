@@ -1,6 +1,25 @@
 .Stop {
-  min-width: 25%;
-  width: 300px;
-  padding: 10px;
+  width: 25%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.Stop .stopInfo {
+  padding: 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #DDD;
+}
+
+.Stop .stopInfo h2 {
+  font-weight: 300;
+  text-transform: uppercase;
+  font-size: 18px;
+}
+
+.Stop .arrivals {
+  flex: 1;
+  overflow: scroll;
 }
