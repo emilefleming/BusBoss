@@ -13,27 +13,47 @@ router.get('/', (req, res, next) => {
 
 router.get('/:id/arrivals', (req, res, next) => {
 
-  function addShapeToTrip(trip) {
+  function addShapeToTrip(arrival) {
     return new Promise((resolve, reject) => {
-      axios.get(`http://api.pugetsound.onebusaway.org/api/where/shape/${trip.shapeId}.json?key=${process.env.OBA_KEY}`)
+      axios.get(`http://api.pugetsound.onebusaway.org/api/where/shape/${arrival.shapeId}.json?key=${process.env.OBA_KEY}`)
       .then(response => {
-          trip.shape = decode(response.data.data.entry.points)
-        resolve(trip)
+          arrival.shape = decode(response.data.data.entry.points)
+        resolve(arrival)
       })
       .catch(err => {
         console.log(err);
-        resolve(trip)
+        resolve(arrival)
       })
     })
   }
 
-  axios.get(`http://api.pugetsound.onebusaway.org/api/where/arrivals-and-departures-for-stop/${req.params.id}.json?key=${process.env.OBA_KEY}`)
-    .then(response => {
+  function refactorArrivals(data) {
+    return new Promise((resolve, reject) => {
+      const shapeIds = data.references.trips.reduce((acc, trip) => {
+        acc[trip.id] = trip.shapeId;
+
+        return acc;
+      }, {});
+
       return Promise.all(
-        response.data.data.references.trips.map(trip => {
-          return addShapeToTrip(trip)
+        data.entry.arrivalsAndDepartures.map(arrival => {
+          arrival.shapeId = shapeIds[arrival.tripId]
+          return addShapeToTrip(arrival)
         })
       )
+      .then(arrivals => {
+        resolve(arrivals);
+      })
+      .catch(err => {
+        console.log(err);
+        resolve(arrivals);
+      });
+    });
+  };
+
+  axios.get(`http://api.pugetsound.onebusaway.org/api/where/arrivals-and-departures-for-stop/${req.params.id}.json?key=${process.env.OBA_KEY}`)
+    .then(response => {
+      return refactorArrivals(response.data.data)
     })
     .then(response => {
       res.send(response);
