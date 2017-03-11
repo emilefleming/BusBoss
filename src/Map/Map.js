@@ -3,6 +3,9 @@ import { GoogleMapLoader, GoogleMap, Marker, Polyline } from 'react-google-maps'
 import axios from 'axios';
 import './Map.css';
 
+const io = require('socket.io-client')
+const socket = io()
+
 export default class Map extends Component {
   constructor(props) {
     super(props)
@@ -25,8 +28,10 @@ export default class Map extends Component {
   };
 
   onMarkerClick(id) {
-    axios.get(`/api/stops/routes/${id}`)
+    axios.get(`/api/stops/${id}/arrivals`)
       .then(response => {
+        console.log(1);
+        console.log(response);
         this.setState({
           lines: response.data
         })
