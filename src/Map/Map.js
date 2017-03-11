@@ -12,14 +12,13 @@ export default class Map extends Component {
 
     this.state = {
       stops: [],
-      lines: []
+      arrivals: [],
     };
   };
 
   componentDidMount() {
     axios.get(`/api/stops`)
       .then(response => {
-        console.log(response);
         this.setState({
           stops: response.data
         })
@@ -30,10 +29,9 @@ export default class Map extends Component {
   onMarkerClick(id) {
     axios.get(`/api/stops/${id}/arrivals`)
       .then(response => {
-        console.log(1);
         console.log(response);
         this.setState({
-          lines: response.data
+          arrivals: response.data
         })
       })
       .catch(err => {console.log(err)})
@@ -67,15 +65,15 @@ export default class Map extends Component {
                   );
                 })}
 
-                {this.state.lines.map((line, index) => {
+                {this.state.arrivals.map(arrival => {
                   return (
                     <Polyline
-                      key={index}
-                      path={line}
+                      key={arrival.id}
+                      path={arrival.shape}
                       options={{
-                        strokeColor: "#3972AB",
-                        strokeWeight: 10,
-                        strokeOpacity: .75
+                        strokeColor: "black",
+                        strokeWeight: 6,
+                        strokeOpacity: .25
                       }}
                     />
                   )
