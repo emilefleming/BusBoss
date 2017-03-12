@@ -15,6 +15,7 @@ export default class Nearby extends Component {
     };
 
     this.onMarkerClick = this.onMarkerClick.bind(this);
+    this.setActiveTrip = this.setActiveTrip.bind(this);
   };
 
   componentDidMount() {
@@ -39,16 +40,31 @@ export default class Nearby extends Component {
       .catch(err => {console.log(err)})
   }
 
+  setActiveTrip(arrival) {
+    let activeShape = null;
+
+    if (arrival) {
+      activeShape = arrival.shape
+    }
+    this.setState({ activeShape })
+  }
+
   render() {
-    const { stops, arrivals, activeStop } = this.state;
+    const { state, onMarkerClick, setActiveTrip} = this;
+    const { stops, arrivals, activeStop, activeShape } = state;
     return (
       <div className="Nearby">
-        <Stop arrivals={arrivals} stop={ activeStop }/>
+        <Stop
+          arrivals={ arrivals }
+          stop={ activeStop }
+          setActiveTrip={setActiveTrip}
+        />
         <div className="map">
           <Map
-            stops={stops}
-            arrivals={arrivals}
-            onMarkerClick={this.onMarkerClick}
+            stops={ stops }
+            arrivals={ arrivals }
+            onMarkerClick={ onMarkerClick }
+            activeShape={ activeShape }
           />
         </div>
       </div>
