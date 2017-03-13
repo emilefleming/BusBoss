@@ -5,6 +5,7 @@ import mapStyles from './mapStyles.json'
 
 function icon(direction) {
   let url = `/icons/stops/${ direction }.png`
+
   if (!direction) {
     url = '/icons/stops/generic.png'
   }
@@ -19,7 +20,7 @@ function icon(direction) {
 
 
 export default function Map(props) {
-  const { stops, arrivals, onMarkerClick, activeShape, activeStop } = props
+  const { stops, arrivals, onMarkerClick, activeTrip, activeStop } = props
   return (
     <div className="Map">
       <GoogleMapLoader
@@ -34,12 +35,14 @@ export default function Map(props) {
         googleMapElement={
           <GoogleMap
             defaultZoom={16}
-            center={{ lat: 47.6062, lng: -122.3321 }}
-            defaultOptions={ { styles: mapStyles } }
+            defaultOptions={{
+              styles: mapStyles,
+              center: { lat: 47.6062, lng: -122.3321 }
+            }}
 
           >
             {
-              !activeShape
+              !activeTrip
               ? stops.map(stop => {
                   return (
                     <Marker
@@ -61,14 +64,26 @@ export default function Map(props) {
                   icon={ icon(activeStop.direction) }
                   position={ {lat: activeStop.lat, lng: activeStop.lon} }
                   onClick={ () => onMarkerClick(activeStop) }
-                  key={ activeStop.id }
                 />
               : null
             }
             {
-              activeShape
+              activeTrip
+              ? <Marker
+                  icon={{
+                    url: '/icons/bus.png',
+                    size: new window.google.maps.Size(50, 50),
+                    origin: new window.google.maps.Point(0, 0),
+                    anchor: new window.google.maps.Point(25, 25)
+                  }}
+                  position={ {lat: activeTrip.tripStatus.position.lat, lng: activeTrip.tripStatus.position.lon} }
+                />
+              : null
+            }
+            {
+              activeTrip
                 ? <Polyline
-                    path={ activeShape }
+                    path={ activeTrip.shape }
                     options={{
                       strokeColor: "#EF382B",
                       strokeWeight: 8,
