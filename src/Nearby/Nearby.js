@@ -50,7 +50,7 @@ export default class Nearby extends Component {
   }
 
   render() {
-    const { state, onMarkerClick, setActiveTrip} = this;
+    const { state, onMarkerClick, setActiveTrip } = this;
     const { stops, arrivals, activeStop, activeShape } = state;
     return (
       <div className="Nearby">
@@ -65,6 +65,7 @@ export default class Nearby extends Component {
             arrivals={ arrivals }
             onMarkerClick={ onMarkerClick }
             activeShape={ activeShape }
+            activeStop={ activeStop }
           />
         </div>
       </div>
