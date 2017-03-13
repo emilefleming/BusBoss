@@ -25,8 +25,20 @@ export default function Map(props) {
           >
             {
               stops.map(stop => {
+                let url = `/icons/stops/${ stop.direction }.png`
+                if (!stop.direction) {
+                  url = '/icons/stops/generic.png'
+                }
+                const icon = {
+                  url,
+                  size: new window.google.maps.Size(50, 50),
+                  origin: new window.google.maps.Point(0, 0),
+                  anchor: new window.google.maps.Point(25, 25)
+                };
+
                 return (
                   <Marker
+                    icon={ icon }
                     position={ {lat: stop.lat, lng: stop.lon} }
                     onClick={ () => onMarkerClick(stop) }
                     key={ stop.id }
