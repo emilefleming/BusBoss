@@ -1,5 +1,6 @@
 .Stop {
   width: 25%;
+  min-width: 300px;
   height: 100%;
   display: flex;
   flex-direction: column;

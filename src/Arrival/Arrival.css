@@ -2,12 +2,30 @@
   width: 100%;
   display: flex;
   align-items: center;
-  padding: 15px 0;
   border-bottom: 1px solid #EEE;
+  height: 60px;
 }
 
 .Arrival:hover {
   background-color: #EEE
+}
+
+.Arrival .details {
+  flex: 1;
+}
+
+.Arrival .minutesUntil {
+  width: 8ch;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.Arrival .minutesUntil div {
+  margin-top: 3px;
+  font-size: 8px;
+  color: #666;
 }
 
 .Arrival h3 {
@@ -18,5 +36,6 @@
 
 .Arrival h4 {
   font-size: 12px;
+  font-weight: 500;
   color: #333;
 }

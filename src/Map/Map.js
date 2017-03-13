@@ -20,6 +20,7 @@ function icon(direction) {
 
 
 export default function Map(props) {
+  console.log(' |||||||||   MAP RENDERED   ||||||||');
   const { stops, arrivals, onMarkerClick, activeTrip, activeStop } = props
   return (
     <div className="Map">
