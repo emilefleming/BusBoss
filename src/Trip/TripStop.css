@@ -3,6 +3,10 @@
   align-items: center;
 }
 
+.TripStop:hover {
+  background-color: #EEE;
+}
+
 .TripStop .icon {
   width: 20px;
   height: 20px;

@@ -80,26 +80,26 @@ export default class Map extends Component {
               {
                 activeTrip
                 ? <Polyline
-                path={ activeTrip.shape }
-                options={{
-                  strokeColor: "#EF382B",
-                  strokeWeight: 8,
-                  zIndex: 9,
-                  icons: [{
-                    icon: {
-                      path: 'M20,10c0,5.5-4.5,10-10,10S0,15.5,0,10S4.5,0,10,0S20,4.5,20,10z',
-                      fillOpacity: 1,
-                      fillColor: 'white',
-                      strokeWeight: 2,
-                      strokeColor: '#EF382B',
-                      strokeOpacity: 1,
-                      scale: 1,
-                      anchor: new window.google.maps.Point(10, 10)
-                    },
-                    offset: `${( activeTrip.tripStatus.distanceAlongTrip / activeTrip.tripStatus.totalDistanceAlongTrip ) * 100}%`
-                  }]
-                }}
-              />
+                  path={ activeTrip.shape }
+                  options={{
+                    strokeColor: "#EF382B",
+                    strokeWeight: 8,
+                    zIndex: 9,
+                    icons: [{
+                      icon: {
+                        path: 'M20,10c0,5.5-4.5,10-10,10S0,15.5,0,10S4.5,0,10,0S20,4.5,20,10z',
+                        fillOpacity: 1,
+                        fillColor: 'white',
+                        strokeWeight: 2,
+                        strokeColor: '#EF382B',
+                        strokeOpacity: 1,
+                        scale: 1,
+                        anchor: new window.google.maps.Point(10, 10)
+                      },
+                      offset: `${( activeTrip.tripStatus.distanceAlongTrip / activeTrip.tripStatus.totalDistanceAlongTrip ) * 100}%`
+                    }]
+                  }}
+                />
               : null
             }
             {
