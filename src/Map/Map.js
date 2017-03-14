@@ -19,8 +19,10 @@ function icon(direction) {
 }
 
 function stopIcons(tripStops, length) {
-  console.log(tripStops);
   return tripStops.map(stop => {
+    if (!stop.departure) {
+      return { icon: null }
+    }
     return {
       icon: {
         path: 'M20,10c0,5.5-4.5,10-10,10S0,15.5,0,10S4.5,0,10,0S20,4.5,20,10z',
