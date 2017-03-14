@@ -3,26 +3,13 @@ import './Arrival.css';
 import moment from 'moment';
 
 export default class Arrival extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = { mouseOver: false }
-
-    this.handleMouseEnter = this.handleMouseEnter.bind(this);
-  }
-
-  handleMouseEnter() {
-    this.props.setActiveTrip(this.props.arrival)
-  }
-
   render() {
-    const { props, handleMouseEnter } = this;
-    const { arrival, setActiveTrip, lastUpdated } = props;
+    const { arrival, setHoverTrip, setClickedTrip, lastUpdated } = this.props;
     return (
       <div
         className="Arrival"
-        onClick={ () => {setActiveTrip(arrival)} }
-        onMouseEnter={ handleMouseEnter }
+        onClick={ () => {setClickedTrip(arrival)} }
+        onMouseEnter={ () => {setHoverTrip(arrival)} }
       >
         <h3>{ arrival.routeShortName || arrival.routeLongName }</h3>
         <div className="details">
