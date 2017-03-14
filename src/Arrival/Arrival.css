@@ -4,6 +4,7 @@
   align-items: center;
   border-bottom: 1px solid #EEE;
   height: 60px;
+  cursor: pointer;
 }
 
 .Arrival:hover {
