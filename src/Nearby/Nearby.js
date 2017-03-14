@@ -72,7 +72,7 @@ export default class Nearby extends Component {
 
   setClickedTrip(arrival) {
     if (!arrival) {
-      return this.setState({ clickedTrip: null, mapBounds: null })
+      return this.setState({ clickedTrip: null, mapBounds: null, tripStops: [] })
     }
 
     const mapBounds = getBounds(arrival.shape);
