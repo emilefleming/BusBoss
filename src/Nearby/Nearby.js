@@ -11,11 +11,13 @@ export default class Nearby extends Component {
     this.state = {
       stops: [],
       arrivals: [],
-      activeStop: {}
+      activeStop: {},
+      mapHidden: false
     };
 
     this.onMarkerClick = this.onMarkerClick.bind(this);
     this.setActiveTrip = this.setActiveTrip.bind(this);
+    this.toggleView = this.toggleView.bind(this);
   };
 
   componentDidMount() {
@@ -29,6 +31,7 @@ export default class Nearby extends Component {
   };
 
   onMarkerClick(stop) {
+    this.toggleView()
     this.setState({ activeStop: stop });
     axios.get(`/api/stops/${stop.id}/arrivals`)
       .then(response => {
@@ -45,13 +48,23 @@ export default class Nearby extends Component {
 
     if (arrival) {
       activeTrip = arrival
+      this.toggleView()
     }
     this.setState({ activeTrip })
   }
 
+  toggleView() {
+    if (window.innerWidth > 700) {
+      return;
+    }
+    this.setState({
+      mapHidden: !this.state.mapHidden
+    })
+  }
+
   render() {
-    const { state, onMarkerClick, setActiveTrip } = this;
-    const { stops, arrivals, activeStop, activeTrip } = state;
+    const { state, onMarkerClick, setActiveTrip, toggleView } = this;
+    const { stops, arrivals, activeStop, activeTrip, mapHidden } = state;
     return (
       <div className="Nearby">
         <Stop
@@ -59,15 +72,20 @@ export default class Nearby extends Component {
           stop={ activeStop }
           setActiveTrip={setActiveTrip}
         />
-        <div className="map">
-          <Map
-            stops={ stops }
-            arrivals={ arrivals }
-            onMarkerClick={ onMarkerClick }
-            activeTrip={ activeTrip }
-            activeStop={ activeStop }
-          />
-        </div>
+        {
+          (mapHidden && window.innerWidth <= 700)
+          ? null
+          : <div className="map">
+              <Map
+                stops={ stops }
+                arrivals={ arrivals }
+                onMarkerClick={ onMarkerClick }
+                activeTrip={ activeTrip }
+                activeStop={ activeStop }
+                setActiveTrip={ setActiveTrip }
+              />
+            </div>
+        }
       </div>
     )
   }

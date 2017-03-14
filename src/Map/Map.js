@@ -21,9 +21,9 @@ function icon(direction) {
 
 export default function Map(props) {
   console.log(' |||||||||   MAP RENDERED   ||||||||');
-  const { stops, arrivals, onMarkerClick, activeTrip, activeStop } = props
+  const { stops, arrivals, onMarkerClick, activeTrip, activeStop, setActiveTrip } = props
   return (
-    <div className="Map">
+    <div className="Map" onClick={ () => {setActiveTrip(null)} }>
       <GoogleMapLoader
         containerElement={
           <div

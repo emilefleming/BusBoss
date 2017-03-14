@@ -8,3 +8,30 @@
   flex: 1;
   height: 100%;
 }
+
+.Nearby .Stop {
+  width: 25%;
+  min-width: 350px;
+  height: 100%;
+}
+
+@media (max-width: 700px) {
+  .Nearby {
+    overflow: scroll;
+    flex-direction: column;
+  }
+
+  .Nearby .map {
+    width: 100%;
+    height: 100%;
+  }
+
+  .Nearby .Stop {
+    width: 100%;
+    height: 100%;
+  }
+
+  .Nearby .toggleView {
+    display: none;
+  }
+}
