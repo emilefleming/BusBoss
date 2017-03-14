@@ -115,6 +115,7 @@ export default class Nearby extends Component {
           setHoverTrip={ setHoverTrip }
           lastUpdated={ lastUpdated }
           setClickedTrip={ setClickedTrip }
+          clickedTrip={ clickedTrip }
         />
         {
           (mapHidden && window.innerWidth <= 700)

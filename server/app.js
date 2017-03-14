@@ -17,6 +17,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.use('/api/stops', require('./routes/stops'));
+app.use('/api/trip', require('./routes/trips'));
 
 app.use(express.static(path.resolve(__dirname, '..', 'build')));
 

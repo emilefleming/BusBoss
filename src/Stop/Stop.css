@@ -26,8 +26,3 @@
   width: 100%;
   border: 1px solid #CCC;
 }
-
-.Stop .arrivals {
-  flex: 1;
-  overflow: scroll;
-}

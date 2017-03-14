@@ -1,0 +1,20 @@
+.Trip {
+  flex: 1;
+  overflow: scroll;
+}
+
+.Trip h2 {
+  font-weight: 300;
+  display: flex;
+  padding: 10px 20px;
+  border-bottom: 1px solid #DDD;
+  font-size: 16px;
+  background-color: #EEE;
+  margin-bottom: 10px;
+}
+
+.Trip h2 em {
+  font-style: normal;
+  flex: 1;
+  text-align: right;
+}
