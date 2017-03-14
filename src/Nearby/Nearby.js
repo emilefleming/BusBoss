@@ -71,13 +71,11 @@ export default class Nearby extends Component {
   }
 
   setClickedTrip(arrival) {
-    let mapBounds;
-
     if (!arrival) {
-      return this.setState({ clickedTrip: null })
+      return this.setState({ clickedTrip: null, mapBounds: null })
     }
 
-    mapBounds = getBounds(arrival.shape);
+    const mapBounds = getBounds(arrival.shape);
     axios.get(`/api/trip/${arrival.tripId}`)
       .then(response => {
         const { entry, references } = response.data;
