@@ -3,7 +3,7 @@ import Arrival from '../Arrival/Arrival';
 import './Stop.css';
 
 export default function Stop(props) {
-  const { arrivals, stop, setActiveTrip } = props;
+  const { arrivals, stop, setActiveTrip, lastUpdated } = props;
 
   return (
     <div className="Stop">
@@ -14,9 +14,10 @@ export default function Stop(props) {
         {
           arrivals.map(arrival =>
             <Arrival
-              key={arrival.tripId}
-              arrival={arrival}
-              setActiveTrip={setActiveTrip}
+              key={ arrival.tripId }
+              arrival={ arrival }
+              setActiveTrip={ setActiveTrip }
+              lastUpdated={ lastUpdated }
             />
           )
         }

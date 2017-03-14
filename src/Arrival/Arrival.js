@@ -17,7 +17,7 @@ export default class Arrival extends Component {
 
   render() {
     const { props, handleMouseEnter } = this;
-    const { arrival, setActiveTrip } = props;
+    const { arrival, setActiveTrip, lastUpdated } = props;
     return (
       <div
         className="Arrival"
@@ -28,16 +28,17 @@ export default class Arrival extends Component {
         <div className="details">
           <h4>{ arrival.tripHeadsign }</h4>
         </div>
-        <MinutesUntil arrival={ arrival } />
+        <MinutesUntil arrival={ arrival } lastUpdated={ lastUpdated } />
       </div>
     )
   }
 }
 
 function MinutesUntil(props) {
-  const { predictedArrivalTime, scheduledArrivalTime } = props.arrival
+  const { arrival, lastUpdated } = props;
+  const { predictedArrivalTime, scheduledArrivalTime } = arrival
   const predicted = predictedArrivalTime !== 0 ? '' : '*'
-  const minuteDiff = Math.round(moment(predictedArrivalTime || scheduledArrivalTime ).diff(moment()) / 60000);
+  const minuteDiff = Math.round(moment(predictedArrivalTime || scheduledArrivalTime ).diff(lastUpdated) / 60000);
 
   return (
     <div className="minutesUntil">

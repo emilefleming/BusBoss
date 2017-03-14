@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import moment from 'moment';
 import Map from '../Map/Map';
 import Stop from '../Stop/Stop';
-import './Nearby.css'
+import './Nearby.css';
 
 export default class Nearby extends Component {
   constructor(props) {
@@ -37,7 +38,8 @@ export default class Nearby extends Component {
       .then(response => {
         console.log(response);
         this.setState({
-          arrivals: response.data
+          arrivals: response.data,
+          lastUpdated: moment()
         })
       })
       .catch(err => {console.log(err)})
@@ -63,14 +65,18 @@ export default class Nearby extends Component {
   }
 
   render() {
-    const { state, onMarkerClick, setActiveTrip, toggleView } = this;
-    const { stops, arrivals, activeStop, activeTrip, mapHidden } = state;
+    const { state, onMarkerClick, setActiveTrip } = this;
+    const {
+      stops, arrivals, activeStop, activeTrip, mapHidden, lastUpdated
+    } = state;
+
     return (
       <div className="Nearby">
         <Stop
           arrivals={ arrivals }
           stop={ activeStop }
-          setActiveTrip={setActiveTrip}
+          setActiveTrip={ setActiveTrip }
+          lastUpdated={ lastUpdated }
         />
         {
           (mapHidden && window.innerWidth <= 700)
