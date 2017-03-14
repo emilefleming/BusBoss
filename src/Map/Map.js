@@ -50,9 +50,10 @@ export default class Map extends Component {
       activeTrip,
       activeStop,
       setClickedTrip,
-      bounds,
-      tripStops
+      tripStops,
+      setMapRef
     } = this.props
+
     return (
       <div className="Map" onClick={ () => {setClickedTrip(null)} }>
         <GoogleMapLoader
@@ -66,12 +67,12 @@ export default class Map extends Component {
           }
           googleMapElement={
             <GoogleMap
-              defaultZoom={16}
               defaultOptions={{
                 styles: mapStyles,
-                center: { lat: 47.6062, lng: -122.3321 }
+                center: { lat: 47.6062, lng: -122.3321 },
+                zoom: 16
               }}
-              ref={ (map) => { if (bounds && map) { map.fitBounds(bounds)}} }
+              ref={ (map) => { setMapRef(map) } }
             >
                 {
                   !activeTrip

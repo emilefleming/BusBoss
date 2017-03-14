@@ -49,7 +49,6 @@ export default class Nearby extends Component {
     this.setState({ activeStop: stop });
     axios.get(`/api/stops/${stop.id}/arrivals`)
       .then(response => {
-        console.log(response);
         this.setState({
           arrivals: response.data,
           lastUpdated: moment()
@@ -71,11 +70,22 @@ export default class Nearby extends Component {
   }
 
   setClickedTrip(arrival) {
+    const { mapRef, savedMapView } = this.state;
+
     if (!arrival) {
-      return this.setState({ clickedTrip: null, mapBounds: null, tripStops: [] })
+      if (savedMapView) {
+        mapRef.setCenter(savedMapView.center)
+        mapRef.setZoom(savedMapView.zoom)
+      }
+      return this.setState({ clickedTrip: null, tripStops: [], savedMapView: null })
     }
 
-    const mapBounds = getBounds(arrival.shape);
+    const saveMapView = {
+      center: mapRef.getCenter(),
+      zoom: mapRef.getZoom()
+    }
+
+    mapRef.fitBounds(getBounds(arrival.shape));
     axios.get(`/api/trip/${arrival.tripId}`)
       .then(response => {
         const { entry, references } = response.data;
@@ -94,7 +104,7 @@ export default class Nearby extends Component {
 
         this.setState({
           tripStops,
-          mapBounds,
+          savedMapView: saveMapView,
           clickedTrip: arrival,
           hoverTrip: null
         });
@@ -115,8 +125,9 @@ export default class Nearby extends Component {
   }
 
   setMapRef(map) {
-    console.log(map);
-    this.setState({ map })
+    if (!this.state.mapRef) {
+      this.setState({ mapRef: map.props.map })
+    }
   }
 
   render() {

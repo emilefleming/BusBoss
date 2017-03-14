@@ -5,7 +5,6 @@ import TripStop from './TripStop'
 
 export default function Trip(props) {
   const { trip, stops } = props;
-  console.log(trip);
   return (
     <div className="Trip">
       <h2>
