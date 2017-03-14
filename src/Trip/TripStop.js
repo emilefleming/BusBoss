@@ -3,7 +3,7 @@ import './TripStop.css'
 
 export default function TripStop(props) {
   const { stop } = props
-  console.log(stop);
+
   return (
     stop.departure
     ? <div className="TripStop">

@@ -73,35 +73,38 @@ export default class Nearby extends Component {
   setClickedTrip(arrival) {
     let mapBounds;
 
-    if (arrival) {
-      axios.get(`/api/trip/${arrival.tripId}`)
-        .then(response => {
-          const { entry, references } = response.data;
-          const stopObj = entry.schedule.stopTimes.reduce((acc, stop) => {
-            acc[stop.stopId] = {
-              departureTime: moment(stop.departureTime * 1000 + entry.serviceDate),
-              distanceAlongTrip: stop.distanceAlongTrip
-            }
-            return acc;
-          }, {})
-
-          const tripStops = references.stops.map(stop => {
-            stop.departure = stopObj[stop.id]
-            return stop;
-          })
-
-          this.setState({
-            tripStops
-          });
-          mapBounds = getBounds(arrival.shape);
-          this.toggleView()
-        })
-        .catch(err => {
-          console.log(err);
-        })
+    if (!arrival) {
+      return this.setState({ clickedTrip: null })
     }
 
-    this.setState({ mapBounds, clickedTrip: arrival, hoverTrip: null });
+    mapBounds = getBounds(arrival.shape);
+    axios.get(`/api/trip/${arrival.tripId}`)
+      .then(response => {
+        const { entry, references } = response.data;
+        const stopObj = entry.schedule.stopTimes.reduce((acc, stop) => {
+          acc[stop.stopId] = {
+            departureTime: moment(stop.departureTime * 1000 + entry.serviceDate),
+            distanceAlongTrip: stop.distanceAlongTrip
+          }
+          return acc;
+        }, {})
+
+        const tripStops = references.stops.map(stop => {
+          stop.departure = stopObj[stop.id]
+          return stop;
+        })
+
+        this.setState({
+          tripStops,
+          mapBounds,
+          clickedTrip: arrival,
+          hoverTrip: null
+        });
+        this.toggleView()
+      })
+      .catch(err => {
+        console.log(err);
+      })
   }
 
   toggleView() {
