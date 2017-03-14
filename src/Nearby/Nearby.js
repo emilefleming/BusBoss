@@ -23,7 +23,8 @@ export default class Nearby extends Component {
       stops: [],
       arrivals: [],
       activeStop: {},
-      mapHidden: false
+      mapHidden: false,
+      tripStops: []
     };
 
     this.onMarkerClick = this.onMarkerClick.bind(this);
@@ -73,8 +74,31 @@ export default class Nearby extends Component {
     let mapBounds;
 
     if (arrival) {
-      mapBounds = getBounds(arrival.shape);
-      this.toggleView()
+      axios.get(`/api/trip/${arrival.tripId}`)
+        .then(response => {
+          const { entry, references } = response.data;
+          const stopObj = entry.schedule.stopTimes.reduce((acc, stop) => {
+            acc[stop.stopId] = {
+              departureTime: moment(stop.departureTime * 1000 + entry.serviceDate),
+              distanceAlongTrip: stop.distanceAlongTrip
+            }
+            return acc;
+          }, {})
+
+          const tripStops = references.stops.map(stop => {
+            stop.departure = stopObj[stop.id]
+            return stop;
+          })
+
+          this.setState({
+            tripStops
+          });
+          mapBounds = getBounds(arrival.shape);
+          this.toggleView()
+        })
+        .catch(err => {
+          console.log(err);
+        })
     }
 
     this.setState({ mapBounds, clickedTrip: arrival, hoverTrip: null });
@@ -104,7 +128,8 @@ export default class Nearby extends Component {
       mapHidden,
       lastUpdated,
       clickedTrip,
-      mapBounds
+      mapBounds,
+      tripStops
     } = this.state;
 
     return (
@@ -116,6 +141,7 @@ export default class Nearby extends Component {
           lastUpdated={ lastUpdated }
           setClickedTrip={ setClickedTrip }
           clickedTrip={ clickedTrip }
+          tripStops={ tripStops }
         />
         {
           (mapHidden && window.innerWidth <= 700)
@@ -131,6 +157,7 @@ export default class Nearby extends Component {
                 setClickedTrip={ setClickedTrip }
                 setMapRef={ setMapRef }
                 bounds={ mapBounds }
+                tripStops={ tripStops }
               />
             </div>
         }
