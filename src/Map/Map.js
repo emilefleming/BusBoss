@@ -18,29 +18,37 @@ function icon(direction) {
   };
 }
 
-function stopIcons(tripStops, length) {
-  return tripStops.map(stop => {
-    if (!stop.departure) {
-      return { icon: null }
-    }
-    return {
-      icon: {
-        path: 'M20,10c0,5.5-4.5,10-10,10S0,15.5,0,10S4.5,0,10,0S20,4.5,20,10z',
-        fillOpacity: 1,
-        fillColor: 'white',
-        strokeWeight: 2,
-        strokeColor: '#EF382B',
-        strokeOpacity: 1,
-        scale: .75,
-        anchor: new window.google.maps.Point(10, 10)
-      },
-      offset: `${( stop.departure.distanceAlongTrip / length ) * 100}%`
-    }
-  })
-}
-
-
 export default class Map extends Component {
+  constructor(props) {
+    super(props)
+
+    this.generateStopIcons = this.generateStopIcons.bind(this);
+  }
+
+  generateStopIcons() {
+    const length = this.props.activeTrip.tripStatus.totalDistanceAlongTrip;
+    const id = this.props.activeTripStop.id
+
+    return this.props.tripStops.map(stop => {
+      if (!stop.departure || (id && id !== stop.id)) {
+        return { icon: null }
+      }
+      return {
+        icon: {
+          path: 'M20,10c0,5.5-4.5,10-10,10S0,15.5,0,10S4.5,0,10,0S20,4.5,20,10z',
+          fillOpacity: 1,
+          fillColor: 'white',
+          strokeWeight: 2,
+          strokeColor: '#EF382B',
+          strokeOpacity: 1,
+          scale: .75,
+          anchor: new window.google.maps.Point(10, 10)
+        },
+        offset: `${( stop.departure.distanceAlongTrip / length ) * 100}%`
+      }
+    })
+  }
+
   render() {
     console.log('MAP RENDERED');
     const {
@@ -50,7 +58,6 @@ export default class Map extends Component {
       activeTrip,
       activeStop,
       setClickedTrip,
-      tripStops,
       setMapRef
     } = this.props
 
@@ -108,7 +115,7 @@ export default class Map extends Component {
                     strokeColor: "#EF382B",
                     strokeWeight: 8,
                     zIndex: 9,
-                    icons: stopIcons(tripStops, activeTrip.tripStatus.totalDistanceAlongTrip)
+                    icons: this.generateStopIcons()
                   }}
                 />
               : null

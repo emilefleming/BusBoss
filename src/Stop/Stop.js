@@ -11,7 +11,8 @@ export default function Stop(props) {
     setClickedTrip,
     lastUpdated,
     clickedTrip,
-    tripStops
+    tripStops,
+    setActiveTripStop
   } = props;
 
   return (
@@ -21,7 +22,11 @@ export default function Stop(props) {
       </div>
       {
         clickedTrip
-        ? <Trip trip={ clickedTrip } stops={ tripStops }/>
+        ? <Trip
+            trip={ clickedTrip }
+            stops={ tripStops }
+            setActiveTripStop={ setActiveTripStop }
+          />
         : <Arrivals
             arrivals={ arrivals }
             setHoverTrip={ setHoverTrip }

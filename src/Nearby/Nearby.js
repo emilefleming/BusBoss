@@ -24,7 +24,8 @@ export default class Nearby extends Component {
       arrivals: [],
       activeStop: {},
       mapHidden: false,
-      tripStops: []
+      tripStops: [],
+      activeTripStop: {}
     };
 
     this.onMarkerClick = this.onMarkerClick.bind(this);
@@ -32,6 +33,7 @@ export default class Nearby extends Component {
     this.setClickedTrip = this.setClickedTrip.bind(this);
     this.toggleView = this.toggleView.bind(this);
     this.setMapRef = this.setMapRef.bind(this);
+    this.setActiveTripStop = this.setActiveTripStop.bind(this);
   };
 
   componentDidMount() {
@@ -115,6 +117,14 @@ export default class Nearby extends Component {
       })
   }
 
+  setActiveTripStop(stop) {
+    if (!stop) {
+      return this.setState({ activeTripStop: {} })
+    }
+
+    this.setState({ activeTripStop: stop })
+  }
+
   toggleView() {
     if (window.innerWidth > 700) {
       return;
@@ -131,7 +141,13 @@ export default class Nearby extends Component {
   }
 
   render() {
-    const { onMarkerClick, setHoverTrip, setClickedTrip, setMapRef } = this;
+    const {
+      onMarkerClick,
+      setHoverTrip,
+      setClickedTrip,
+      setMapRef,
+      setActiveTripStop
+    } = this;
     const {
       stops,
       arrivals,
@@ -141,7 +157,8 @@ export default class Nearby extends Component {
       lastUpdated,
       clickedTrip,
       mapBounds,
-      tripStops
+      tripStops,
+      activeTripStop
     } = this.state;
 
     return (
@@ -154,6 +171,7 @@ export default class Nearby extends Component {
           setClickedTrip={ setClickedTrip }
           clickedTrip={ clickedTrip }
           tripStops={ tripStops }
+          setActiveTripStop={ setActiveTripStop }
         />
         {
           (mapHidden && window.innerWidth <= 700)
@@ -170,6 +188,7 @@ export default class Nearby extends Component {
                 setMapRef={ setMapRef }
                 bounds={ mapBounds }
                 tripStops={ tripStops }
+                activeTripStop={ activeTripStop }
               />
             </div>
         }
