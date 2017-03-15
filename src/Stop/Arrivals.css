@@ -1,4 +1,10 @@
 .Arrivals {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.Arrivals .arrivalList {
   flex: 1;
   overflow: scroll;
 }

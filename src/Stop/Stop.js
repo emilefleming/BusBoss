@@ -17,21 +17,20 @@ export default function Stop(props) {
 
   return (
     <div className="Stop">
-      <div className="stopInfo">
-        <h2>{ stop.name }</h2>
-      </div>
       {
         clickedTrip
         ? <Trip
             trip={ clickedTrip }
             stops={ tripStops }
             setActiveTripStop={ setActiveTripStop }
+            thisStop={ stop }
           />
         : <Arrivals
             arrivals={ arrivals }
             setHoverTrip={ setHoverTrip }
             setClickedTrip={ setClickedTrip }
             lastUpdated={ lastUpdated }
+            stop={ stop }
           />
       }
     </div>

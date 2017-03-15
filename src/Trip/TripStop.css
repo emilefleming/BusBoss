@@ -20,8 +20,19 @@
   z-index: 0;
 }
 
-.TripStop h3 {
+.TripStop h4 {
   font-size: 12px;
   font-weight: 300;
   margin-top: 3px;
+}
+
+.TripStop .yourStop {
+  display: flex;
+  color: #007DC5;
+  width: 40px;
+  font-size: 28px;
+}
+
+.TripStop .stopDetails {
+  flex: 1;
 }

@@ -3,19 +3,20 @@
   overflow: scroll;
 }
 
-.Trip h2 {
+.Trip h2, .Trip h3 {
   font-weight: 300;
-  display: flex;
-  padding: 10px 20px;
-  border-bottom: 1px solid #DDD;
-  font-size: 16px;
-  background-color: #EEE;
+  text-align: center;
 }
 
-.Trip h2 em {
-  font-style: normal;
-  flex: 1;
-  text-align: right;
+.Trip h2 {
+  padding: 10px 0 5px 0;
+  font-size: 26px;
+}
+
+.Trip h3 {
+  font-size: 16px;
+  border-bottom: 1px solid #EEE;
+  padding-bottom: 10px;
 }
 
 .Trip .schedule {
