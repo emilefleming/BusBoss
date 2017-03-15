@@ -29,3 +29,10 @@
   top: 30px;
   bottom: 30px;
 }
+
+.Trip .stopped {
+  color: #007DC5;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+}
