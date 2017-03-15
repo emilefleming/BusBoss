@@ -5,6 +5,8 @@ import TripStop from './TripStop'
 
 export default function Trip(props) {
   const { trip, stops } = props;
+  console.log(trip, stops);
+  let passedStop = true;
   return (
     <div className="Trip">
       <h2>
@@ -15,8 +17,17 @@ export default function Trip(props) {
         <div className="line"></div>
         {
           stops.map(stop => {
+            if (stop.id === trip.tripStatus.nextStop) {
+              passedStop = false;
+            }
             return (
-              <TripStop key={ stop.id } stop={ stop } />
+              <TripStop key={ stop.id } stop={ stop }>
+                {
+                  passedStop
+                  ? <div className="stopped">✓</div>
+                  : null
+                }
+              </TripStop>
             )
           })
         }
