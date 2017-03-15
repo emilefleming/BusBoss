@@ -17,3 +17,15 @@
   flex: 1;
   text-align: right;
 }
+
+.Trip .schedule {
+  position: relative;
+}
+
+.Trip .line {
+  border-right: 6px solid #CCC;
+  position: absolute;
+  left: 27px;
+  top: 30px;
+  bottom: 30px;
+}

@@ -12,6 +12,7 @@ export default function Trip(props) {
         <em>{ trip.tripHeadsign }</em>
       </h2>
       <div className="schedule">
+        <div className="line"></div>
         {
           stops.map(stop => {
             return (
