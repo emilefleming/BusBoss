@@ -34,17 +34,44 @@ export default class Nearby extends Component {
     this.toggleView = this.toggleView.bind(this);
     this.setMapRef = this.setMapRef.bind(this);
     this.setActiveTripStop = this.setActiveTripStop.bind(this);
+    this.fetchStops = this.fetchStops.bind(this);
+    this.setUserPosition = this.setUserPosition.bind(this);
   };
 
   componentDidMount() {
-    axios.get(`/api/stops`)
-      .then(response => {
-        this.setState({
-          stops: response.data
-        })
-      })
-      .catch(err => {console.log(err)});
+    const options = {
+      enableHighAccuracy: false,
+    };
+
+    function err(err) { console.log(err); }
+
+    navigator.geolocation.watchPosition(this.setUserPosition, err, options)
   };
+
+  fetchStops({ lat, lng }) {
+
+    return axios.get(`/api/stops?lat=${lat}&lng=${lng}`)
+  }
+
+  setUserPosition({ coords }) {
+    const lat = coords.latitude;
+    const lng = coords.longitude;
+    this.state.mapRef.setCenter({lat, lng})
+
+    if (!this.state.userPosition) {
+      this.fetchStops({ lat, lng })
+        .then(response => {
+          this.setState({
+            stops: response.data,
+            userPosition: { lat, lng },
+          })
+        })
+        .catch(err => {console.log(err)});
+    }
+    else {
+      this.setState({ userPosition: { lat, lng }});
+    }
+  }
 
   onMarkerClick(stop) {
     this.toggleView()
