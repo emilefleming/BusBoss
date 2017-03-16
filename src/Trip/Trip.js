@@ -5,12 +5,29 @@ import Icon from '../Icon/Icon';
 import TripStop from './TripStop';
 
 export default function Trip(props) {
-  const { trip, stops, setActiveTripStop, thisStop } = props;
+  const {
+    trip,
+    stops,
+    setActiveTripStop,
+    thisStop,
+    toggleView,
+    setClickedTrip
+  } = props;
   const { routeShortName, routeLongName, tripStatus, tripHeadsign } = trip;
 
   return (
     <div className="Trip">
-      <h2>{ routeShortName || routeLongName }</h2>
+      <header>
+        <div onClick={ () => { setClickedTrip(null) } }>
+          <Icon i="arrow-left" />
+        </div>
+        <h2>
+          { routeShortName || routeLongName }
+        </h2>
+        <div onClick={ toggleView }>
+          <Icon i="google-maps"/>
+        </div>
+      </header>
       <h3>{ tripHeadsign }</h3>
       <div
         className="schedule"

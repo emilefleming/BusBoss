@@ -12,7 +12,8 @@ export default function Stop(props) {
     lastUpdated,
     clickedTrip,
     tripStops,
-    setActiveTripStop
+    setActiveTripStop,
+    toggleView
   } = props;
 
   return (
@@ -24,6 +25,8 @@ export default function Stop(props) {
             stops={ tripStops }
             setActiveTripStop={ setActiveTripStop }
             thisStop={ stop }
+            toggleView={ toggleView }
+            setClickedTrip={ setClickedTrip }
           />
         : <Arrivals
             arrivals={ arrivals }

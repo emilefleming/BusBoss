@@ -110,7 +110,6 @@ export default class Nearby extends Component {
           clickedTrip: arrival,
           hoverTrip: null
         });
-        this.toggleView()
       })
       .catch(err => {
         console.log(err);
@@ -122,23 +121,24 @@ export default class Nearby extends Component {
       return this.setState({ activeTripStop: {} })
     }
 
-    this.setState({ activeTripStop: stop })
-  }
+    this.setState({ activeTripStop: stop });
+  };
 
   toggleView() {
+    console.log('view toggled');
     if (window.innerWidth > 700) {
-      return;
+      return this.setState({ mapHidden: false });
     }
     this.setState({
       mapHidden: !this.state.mapHidden
     })
-  }
+  };
 
   setMapRef(map) {
     if (!this.state.mapRef) {
-      this.setState({ mapRef: map.props.map })
+      this.setState({ mapRef: map.props.map });
     }
-  }
+  };
 
   render() {
     const {
@@ -146,7 +146,8 @@ export default class Nearby extends Component {
       setHoverTrip,
       setClickedTrip,
       setMapRef,
-      setActiveTripStop
+      setActiveTripStop,
+      toggleView
     } = this;
     const {
       stops,
@@ -172,6 +173,7 @@ export default class Nearby extends Component {
           clickedTrip={ clickedTrip }
           tripStops={ tripStops }
           setActiveTripStop={ setActiveTripStop }
+          toggleView={ toggleView }
         />
         {
           (mapHidden && window.innerWidth <= 700)
@@ -184,7 +186,6 @@ export default class Nearby extends Component {
                 activeStop={ activeStop }
                 activeTrip={ clickedTrip || hoverTrip }
                 clickedTrip={ clickedTrip }
-                setClickedTrip={ setClickedTrip }
                 setMapRef={ setMapRef }
                 bounds={ mapBounds }
                 tripStops={ tripStops }

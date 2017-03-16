@@ -1,6 +1,7 @@
 .Trip {
   flex: 1;
-  overflow: scroll;
+  display: flex;
+  flex-direction: column;
 }
 
 .Trip h2, .Trip h3 {
@@ -8,19 +9,41 @@
   text-align: center;
 }
 
+.Trip header {
+  display: flex;
+  height: 80px;
+  align-items: center;
+  border-bottom: 1px solid #EEE;
+  padding-right: 60px;
+}
+
+.Trip header .mdi {
+  width: 20px;
+  margin: 20px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.Trip header .mdi-google-maps {
+  display: none;
+}
+
 .Trip h2 {
-  padding: 10px 0 5px 0;
-  font-size: 26px;
+  font-size: 24px;
+  flex: 1;
 }
 
 .Trip h3 {
   font-size: 16px;
+  padding: 10px 0;
   border-bottom: 1px solid #EEE;
-  padding-bottom: 10px;
+  letter-spacing: 1px;
 }
 
 .Trip .schedule {
   position: relative;
+  overflow: scroll;
+  flex: 1;
 }
 
 .Trip .line {
@@ -36,4 +59,14 @@
   font-weight: 600;
   display: flex;
   justify-content: center;
+}
+
+@media (max-width: 700px) {
+  .Trip header {
+    padding-right: 0;
+  }
+
+  .Trip header .mdi-google-maps {
+    display: block;
+  }
 }

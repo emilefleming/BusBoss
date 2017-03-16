@@ -57,12 +57,11 @@ export default class Map extends Component {
       onMarkerClick,
       activeTrip,
       activeStop,
-      setClickedTrip,
       setMapRef
     } = this.props
 
     return (
-      <div className="Map" onClick={ () => {setClickedTrip(null)} }>
+      <div className="Map">
         <GoogleMapLoader
           containerElement={
             <div
