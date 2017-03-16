@@ -25,7 +25,7 @@ export default function Trip(props) {
           { routeShortName || routeLongName }
         </h2>
         <div onClick={ toggleView }>
-          <Icon i="google-maps"/>
+          <Icon i="map"/>
         </div>
       </header>
       <h3>{ tripHeadsign }</h3>

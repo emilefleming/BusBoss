@@ -22,9 +22,10 @@
   margin: 20px;
   font-size: 24px;
   cursor: pointer;
+  color: #444;
 }
 
-.Trip header .mdi-google-maps {
+.Trip header .mdi-map {
   display: none;
 }
 
