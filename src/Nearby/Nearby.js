@@ -190,7 +190,8 @@ export default class Nearby extends Component {
       mapBounds,
       tripStops,
       activeTripStop,
-      mapRef
+      mapRef,
+      userPosition
     } = this.state;
 
     return (
@@ -222,6 +223,7 @@ export default class Nearby extends Component {
                 tripStops={ tripStops }
                 activeTripStop={ activeTripStop }
                 mapRef={ mapRef }
+                userPosition={ userPosition }
               />
             </div>
         }

@@ -78,7 +78,8 @@ export default class Map extends Component {
       onMarkerClick,
       activeTrip,
       activeStop,
-      setMapRef
+      setMapRef,
+      userPosition
     } = this.props
 
     return (
@@ -102,28 +103,37 @@ export default class Map extends Component {
               ref={ (map) => { setMapRef(map) } }
               onDragEnd={ this.handleMapChange }
             >
-                {
-                  !activeTrip
-                  ? stops.map(stop => {
-                    return (
-                      <Marker
-                        icon={ icon(stop.direction) }
-                        position={ {lat: stop.lat, lng: stop.lon} }
-                        onClick={ () => onMarkerClick(stop) }
-                        key={ stop.id }
-                        options={{ zIndex: 1 }}
-                      />
-                    );
-                  })
-                  : null
-                }
-                {
-                  (activeStop.lat && !activeTrip)
+              {
+                !activeTrip
+                ? stops.map(stop => {
+                  return (
+                    <Marker
+                      icon={ icon(stop.direction) }
+                      position={ {lat: stop.lat, lng: stop.lon} }
+                      onClick={ () => onMarkerClick(stop) }
+                      key={ stop.id }
+                      options={{ zIndex: 1 }}
+                    />
+                  );
+                })
+                : null
+              }
+              {
+                (activeStop.lat && !activeTrip)
                   ? <Marker
                   icon={ icon('selected') }
                   position={ {lat: activeStop.lat, lng: activeStop.lon} }
                   onClick={ () => onMarkerClick(activeStop) }
                   options={{ zIndex: 2 }}
+                />
+                : null
+              }
+              {
+                userPosition
+                  ? <Marker
+                  icon={ icon('user') }
+                  position={ {lat: userPosition.lat, lng: userPosition.lng} }
+                  options={{ zIndex: 3, scale: 2 }}
                 />
                 : null
               }
