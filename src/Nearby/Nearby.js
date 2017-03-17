@@ -156,12 +156,9 @@ export default class Nearby extends Component {
       if (this.state.activeTrip) {
         return;
       }
+
       const { lat, lng } = map.getCenter()
       const { b, f } = map.getBounds()
-      const bounds = {
-        latSpan: b.f - b.b,
-        lonSpan: f.b - f.f
-      }
 
       axios.get(`/api/stops?lat=${lat()}&lng=${lng()}&latSpan=${f.b - f.f}&lonSpan=${b.f - b.b}`)
         .then(response => {

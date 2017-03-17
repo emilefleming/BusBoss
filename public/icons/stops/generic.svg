@@ -1,0 +1,18 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19 19">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #ef382b;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-2 {
+        fill: #ef3a2b;
+      }
+    </style>
+  </defs>
+  <title>generic</title>
+  <circle class="cls-1" cx="9.5" cy="9.5" r="9"/>
+  <rect class="cls-2" x="6.24" y="6.24" width="6.52" height="6.52"/>
+</svg>

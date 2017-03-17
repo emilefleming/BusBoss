@@ -1,0 +1,21 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19 19">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill: none;
+        stroke: #ef382b;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-2 {
+        stroke-width: 2px;
+      }
+    </style>
+  </defs>
+  <title>NE</title>
+  <circle class="cls-1" cx="9.5" cy="9.5" r="9"/>
+  <g>
+    <line class="cls-1" x1="12.26" y1="7.25" x2="6.96" y2="12.56"/>
+    <polyline class="cls-2" points="12.26 12.71 12.26 7.25 6.8 7.25"/>
+  </g>
+</svg>

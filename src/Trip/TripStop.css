@@ -28,9 +28,13 @@
 
 .TripStop .yourStop {
   display: flex;
-  color: #6FBE45;
   width: 40px;
   font-size: 28px;
+}
+
+.TripStop .yourStop img {
+  width: 20px;
+  height: 20px;
 }
 
 .TripStop .stopDetails {

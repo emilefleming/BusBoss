@@ -3,10 +3,10 @@ import { GoogleMapLoader, GoogleMap, Marker, Polyline } from 'react-google-maps'
 import './Map.css';
 import mapStyles from './mapStyles.json'
 
-function icon(direction) {
-  let url = `/icons/stops/${ direction }.png`
+function icon(name) {
+  let url = `/icons/stops/${ name }.png`
 
-  if (!direction) {
+  if (!name) {
     url = '/icons/stops/generic.png'
   }
 
@@ -23,36 +23,51 @@ export default class Map extends Component {
     super(props)
 
     this.generateStopIcons = this.generateStopIcons.bind(this);
-    this.handleMapChange = this.handleMapChange.bind(this);
   }
 
   generateStopIcons() {
     const length = this.props.activeTrip.tripStatus.totalDistanceAlongTrip;
-    const id = this.props.activeTripStop.id
+    const id = this.props.activeTripStop.id;
+    const { activeStop } = this.props;
+    let thisStop;
 
-    return this.props.tripStops.map(stop => {
-      if (!stop.departure || (id && id !== stop.id)) {
-        return { icon: null }
-      }
+    const setIcon = function(path, strokeColor, distance, scale) {
       return {
         icon: {
-          path: 'M20,10c0,5.5-4.5,10-10,10S0,15.5,0,10S4.5,0,10,0S20,4.5,20,10z',
+          path,
+          strokeColor,
+          scale,
           fillOpacity: 1,
           fillColor: 'white',
           strokeWeight: 2,
-          strokeColor: '#EF382B',
           strokeOpacity: 1,
-          scale: .75,
           anchor: new window.google.maps.Point(10, 10)
         },
-        offset: `${( stop.departure.distanceAlongTrip / length ) * 100}%`
+        offset: `${( distance / length ) * 100}%`
       }
-    })
-  }
+    }
 
-  handleMapChange() {
-    console.log(1);
-    console.log(this.props.mapRef.getBounds());
+
+    const allStopMarkers = this.props.tripStops.map(stop => {
+      if (activeStop.id === stop.id) {
+        thisStop = stop;
+      }
+
+      if (!stop.departure || (id && id !== stop.id)) {
+        return { icon: null }
+      }
+
+      return setIcon('M20,10c0,5.5-4.5,10-10,10S0,15.5,0,10S4.5,0,10,0S20,4.5,20,10z', '#EF382B', stop.departure.distanceAlongTrip, .75 )
+    })
+
+    if (thisStop) {
+      const thisStopMarker = setIcon('M19,10a9,9,0,1,1-9-9A9,9,0,0,1,19,10ZM10,6.56v6.88M6.56,10h6.88', '#007DC5', thisStop.departure.distanceAlongTrip, 1);
+
+      allStopMarkers.push(thisStopMarker)
+      return allStopMarkers;
+    }
+
+    return allStopMarkers;
   }
 
   render() {
@@ -96,20 +111,19 @@ export default class Map extends Component {
                         position={ {lat: stop.lat, lng: stop.lon} }
                         onClick={ () => onMarkerClick(stop) }
                         key={ stop.id }
-                        options={{
-                          zIndex: 1
-                        }}
+                        options={{ zIndex: 1 }}
                       />
                     );
                   })
                   : null
                 }
                 {
-                  activeStop.lat
+                  (activeStop.lat && !activeTrip)
                   ? <Marker
-                  icon={ icon(activeStop.direction) }
+                  icon={ icon('selected') }
                   position={ {lat: activeStop.lat, lng: activeStop.lon} }
                   onClick={ () => onMarkerClick(activeStop) }
+                  options={{ zIndex: 2 }}
                 />
                 : null
               }

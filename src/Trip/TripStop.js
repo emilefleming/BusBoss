@@ -1,8 +1,6 @@
 import React from 'react';
 import './TripStop.css';
 
-import Icon from '../Icon/Icon'
-
 export default function TripStop(props) {
   const { stop, children, setActiveTripStop, yourStop } = props
 
@@ -19,7 +17,9 @@ export default function TripStop(props) {
         </div>
         {
           yourStop
-          ? <div className="yourStop"><Icon i="map-marker" /></div>
+          ? <div className="yourStop">
+              <img src="/icons/stops/selected.svg" alt="Current stop icon" />
+            </div>
           : null
         }
       </div>
