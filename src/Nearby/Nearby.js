@@ -163,7 +163,7 @@ export default class Nearby extends Component {
         lonSpan: f.b - f.f
       }
 
-      axios.get(`/api/stops?lat=${lat()}&lng=${lng()}&latSpan=${b.f - b.b}&lonSpan=${f.b - f.f}`)
+      axios.get(`/api/stops?lat=${lat()}&lng=${lng()}&latSpan=${f.b - f.f}&lonSpan=${b.f - b.b}`)
         .then(response => {
           console.log(response.data.length);
           this.setState({ stops: response.data });
