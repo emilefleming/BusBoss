@@ -34,8 +34,8 @@ export default class Nearby extends Component {
     this.toggleView = this.toggleView.bind(this);
     this.setMapRef = this.setMapRef.bind(this);
     this.setActiveTripStop = this.setActiveTripStop.bind(this);
-    this.fetchStops = this.fetchStops.bind(this);
     this.setUserPosition = this.setUserPosition.bind(this);
+    this.setMapEventListeners = this.setMapEventListeners.bind(this);
   };
 
   componentDidMount() {
@@ -48,29 +48,12 @@ export default class Nearby extends Component {
     navigator.geolocation.watchPosition(this.setUserPosition, err, options)
   };
 
-  fetchStops({ lat, lng }) {
-
-    return axios.get(`/api/stops?lat=${lat}&lng=${lng}`)
-  }
-
   setUserPosition({ coords }) {
     const lat = coords.latitude;
     const lng = coords.longitude;
-    this.state.mapRef.setCenter({lat, lng})
 
-    if (!this.state.userPosition) {
-      this.fetchStops({ lat, lng })
-        .then(response => {
-          this.setState({
-            stops: response.data,
-            userPosition: { lat, lng },
-          })
-        })
-        .catch(err => {console.log(err)});
-    }
-    else {
-      this.setState({ userPosition: { lat, lng }});
-    }
+    this.state.mapRef.setCenter({lat, lng})
+    this.setState({ userPosition: { lat, lng }});
   }
 
   onMarkerClick(stop) {
@@ -163,9 +146,32 @@ export default class Nearby extends Component {
 
   setMapRef(map) {
     if (!this.state.mapRef) {
+      this.setMapEventListeners(map.props.map);
       this.setState({ mapRef: map.props.map });
     }
   };
+
+  setMapEventListeners(map) {
+    map.addListener('idle', () => {
+      if (this.state.activeTrip) {
+        return;
+      }
+      const { lat, lng } = map.getCenter()
+      const { b, f } = map.getBounds()
+      const bounds = {
+        latSpan: b.f - b.b,
+        lonSpan: f.b - f.f
+      }
+
+      axios.get(`/api/stops?lat=${lat()}&lng=${lng()}&latSpan=${b.f - b.b}&lonSpan=${f.b - f.f}`)
+        .then(response => {
+          console.log(response.data.length);
+          this.setState({ stops: response.data });
+
+        })
+        .catch(err => { console.log(err); })
+    });
+  }
 
   render() {
     const {
@@ -186,7 +192,8 @@ export default class Nearby extends Component {
       clickedTrip,
       mapBounds,
       tripStops,
-      activeTripStop
+      activeTripStop,
+      mapRef
     } = this.state;
 
     return (
@@ -217,6 +224,7 @@ export default class Nearby extends Component {
                 bounds={ mapBounds }
                 tripStops={ tripStops }
                 activeTripStop={ activeTripStop }
+                mapRef={ mapRef }
               />
             </div>
         }

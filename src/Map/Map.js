@@ -23,6 +23,7 @@ export default class Map extends Component {
     super(props)
 
     this.generateStopIcons = this.generateStopIcons.bind(this);
+    this.handleMapChange = this.handleMapChange.bind(this);
   }
 
   generateStopIcons() {
@@ -47,6 +48,11 @@ export default class Map extends Component {
         offset: `${( stop.departure.distanceAlongTrip / length ) * 100}%`
       }
     })
+  }
+
+  handleMapChange() {
+    console.log(1);
+    console.log(this.props.mapRef.getBounds());
   }
 
   render() {
@@ -79,6 +85,7 @@ export default class Map extends Component {
                 zoom: 16
               }}
               ref={ (map) => { setMapRef(map) } }
+              onDragEnd={ this.handleMapChange }
             >
                 {
                   !activeTrip
