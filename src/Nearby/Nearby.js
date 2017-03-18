@@ -63,7 +63,9 @@ export default class Nearby extends Component {
     const lat = coords.latitude;
     const lng = coords.longitude;
 
-    this.state.mapRef.setCenter({lat, lng})
+    if (!this.state.userPosition) {
+      this.state.mapRef.setCenter({lat, lng})
+    }
     this.setState({ userPosition: { lat, lng }});
   }
 
