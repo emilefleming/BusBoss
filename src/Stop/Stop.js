@@ -13,7 +13,8 @@ export default function Stop(props) {
     clickedTrip,
     tripStops,
     setActiveTripStop,
-    toggleView
+    toggleView,
+    animate
   } = props;
 
   return (
@@ -34,6 +35,7 @@ export default function Stop(props) {
             setClickedTrip={ setClickedTrip }
             lastUpdated={ lastUpdated }
             stop={ stop }
+            animate={ animate }
           />
       }
     </div>

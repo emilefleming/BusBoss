@@ -8,3 +8,33 @@
   flex: 1;
   overflow: scroll;
 }
+
+.Arrivals .loader {
+  width: 100%;
+  height: 1px;
+  background-color: #DDD;
+  position: relative;
+  margin-top: -1px;
+}
+
+.Arrivals .loader .loadBar {
+  height: 100%;
+  position: relative;
+}
+
+.Arrivals .loadAnimation {
+  background-color: red;
+  animation: cssload-width 10s cubic-bezier(0.45, 0, 1, 1);
+}
+
+@keyframes cssload-width {
+	0%, 100% {
+		transition-timing-function: cubic-bezier(1, 0, 0.65, 0.85);
+	}
+	0% {
+		width: 0;
+	}
+	100% {
+		width: 100%;
+	}
+}

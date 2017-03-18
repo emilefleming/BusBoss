@@ -41,11 +41,15 @@ export default class Nearby extends Component {
     this.setMapEventListeners = this.setMapEventListeners.bind(this);
 
     socket.on('arrivals', data => {
-      console.log(data);
-      this.setState({
-        arrivals: data,
-        lastUpdated: moment()
-      });
+      this.setState({ animate: false }, () => {
+        setTimeout(() => {
+          this.setState({
+            arrivals: data,
+            lastUpdated: moment(),
+            animate: true
+          });
+        }, 0)
+      })
     });
   };
 
@@ -81,7 +85,8 @@ export default class Nearby extends Component {
         this.setState({
           arrivals: response.data,
           lastUpdated: moment(),
-          activeStop: stop
+          activeStop: stop,
+          animate: true
         })
       })
       .catch(err => {console.log(err)})
@@ -209,7 +214,8 @@ export default class Nearby extends Component {
       tripStops,
       activeTripStop,
       mapRef,
-      userPosition
+      userPosition,
+      animate
     } = this.state;
 
     return (
@@ -224,6 +230,7 @@ export default class Nearby extends Component {
           tripStops={ tripStops }
           setActiveTripStop={ setActiveTripStop }
           toggleView={ toggleView }
+          animate={ animate }
         />
         {
           (mapHidden && window.innerWidth <= 700)

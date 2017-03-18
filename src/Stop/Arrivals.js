@@ -3,11 +3,16 @@ import Arrival from '../Arrival/Arrival';
 import './Arrivals.css'
 
 export default function Arrivals(props) {
-  const { arrivals, setHoverTrip, setClickedTrip, lastUpdated, stop } = props;
+  const {
+    arrivals, setHoverTrip, setClickedTrip, lastUpdated, stop, animate
+  } = props;
   return (
     <div className="Arrivals" onMouseLeave={ () => {setHoverTrip(null)} }>
       <div className="stopInfo">
         <h2>{ stop.name }</h2>
+      </div>
+      <div className="loader">
+        <div className={`loadBar ${animate ? 'loadAnimation' : ''}`}></div>
       </div>
       <div className="arrivalList">
         {
