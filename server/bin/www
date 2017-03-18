@@ -28,8 +28,15 @@ var server = http.createServer(app);
 var io = require('socket.io')(server);
 app.set('socketio', io);
 
-io.on('connection', function(socket){
+io.on('connection', (socket) => {
   console.log('a user connected');
+
+  socket.on('room', (data) => {
+    if (data.oldRoom) {
+      socket.leave(data.oldRoom)
+    }
+    socket.join(data.room);
+  });
 })
 
 /**
@@ -93,10 +100,13 @@ function onError(error) {
  * Event listener for HTTP server "listening" event.
  */
 
+const socketScript = require('./socketScript')
+
 function onListening() {
   var addr = server.address();
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   console.log('Listening on ' + bind);
+  socketScript(io)
 }

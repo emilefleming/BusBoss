@@ -5,6 +5,9 @@ import Map from '../Map/Map';
 import Stop from '../Stop/Stop';
 import './Nearby.css';
 
+import io from 'socket.io-client';
+const socket = io()
+
 function getBounds(shape) {
   const bounds = new window.google.maps.LatLngBounds();
 
@@ -36,6 +39,14 @@ export default class Nearby extends Component {
     this.setActiveTripStop = this.setActiveTripStop.bind(this);
     this.setUserPosition = this.setUserPosition.bind(this);
     this.setMapEventListeners = this.setMapEventListeners.bind(this);
+
+    socket.on('arrivals', data => {
+      console.log(data);
+      this.setState({
+        arrivals: data,
+        lastUpdated: moment()
+      });
+    });
   };
 
   componentDidMount() {
@@ -57,13 +68,18 @@ export default class Nearby extends Component {
   }
 
   onMarkerClick(stop) {
+    socket.emit('room', {
+      room: `stop-${stop.id}`,
+      oldRoom: `stop-${this.state.activeStop.id}`
+    });
+
     this.toggleView()
-    this.setState({ activeStop: stop });
     axios.get(`/api/stops/${stop.id}/arrivals`)
       .then(response => {
         this.setState({
           arrivals: response.data,
-          lastUpdated: moment()
+          lastUpdated: moment(),
+          activeStop: stop
         })
       })
       .catch(err => {console.log(err)})
