@@ -5,7 +5,6 @@ function socketScript(io) {
 
   function updateArrivals() {
     const rooms = Object.keys(io.sockets.adapter.rooms);
-    console.log(rooms);
 
     if (rooms) {
       const stops = rooms.filter(room => room.match(/^stop-/))
@@ -14,7 +13,7 @@ function socketScript(io) {
 
           fetchArrivals(id)
             .then(response => {
-              console.log(response.length);
+              console.log(`${id} updated ${new Date()}`);
               io.sockets.in(`stop-${id}`).emit('arrivals', response)
             })
             .catch(err => {console.log(err)})
