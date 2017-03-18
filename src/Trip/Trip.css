@@ -11,7 +11,6 @@
 
 .Trip header {
   display: flex;
-  height: 80px;
   align-items: center;
   border-bottom: 1px solid #EEE;
   padding-right: 60px;
@@ -31,14 +30,23 @@
 
 .Trip h2 {
   font-size: 24px;
-  flex: 1;
 }
 
 .Trip h3 {
-  font-size: 16px;
-  padding: 10px 0;
-  border-bottom: 1px solid #EEE;
+  font-size: 14px;
   letter-spacing: 1px;
+  padding: 3px;
+}
+
+.Trip .details h4 {
+  font-weight: 400;
+  text-align: center;
+  font-size: 12px;
+}
+
+.Trip .details {
+  flex: 1;
+  padding: 10px 0;
 }
 
 .Trip .schedule {

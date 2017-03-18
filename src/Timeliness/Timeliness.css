@@ -1,0 +1,19 @@
+.Timeliness {
+  font-size: inherit;
+}
+
+.Timeliness.scheduled {
+  color: #AAA;
+}
+
+.Timeliness.late {
+  color: #EF382B;
+}
+
+.Timeliness.onTime {
+  color: #007DC5;
+}
+
+.Timeliness.early {
+  color: #6FBE45;
+}

@@ -3,6 +3,7 @@ import './Trip.css';
 import Icon from '../Icon/Icon';
 
 import TripStop from './TripStop';
+import Timeliness from '../Timeliness/Timeliness';
 
 export default function Trip(props) {
   const {
@@ -14,21 +15,24 @@ export default function Trip(props) {
     setClickedTrip
   } = props;
   const { routeShortName, routeLongName, tripStatus, tripHeadsign } = trip;
-
+  console.log(trip);
   return (
     <div className="Trip">
       <header>
         <div onClick={ () => { setClickedTrip(null) } }>
           <Icon i="arrow-left" />
         </div>
-        <h2>
-          { routeShortName || routeLongName }
-        </h2>
+        <div className="details">
+          <h2>
+            { routeShortName || routeLongName }
+          </h2>
+          <h3>{ tripHeadsign }</h3>
+          <h4><Timeliness arrival={ trip }/></h4>
+        </div>
         <div onClick={ toggleView }>
           <Icon i="map"/>
         </div>
       </header>
-      <h3>{ tripHeadsign }</h3>
       <div
         className="schedule"
         onMouseLeave={ () => { setActiveTripStop(null) } }

@@ -23,7 +23,7 @@
 }
 
 .Arrivals .loadAnimation {
-  background-color: red;
+  background-color: #AAA;
   animation: cssload-width 10s cubic-bezier(0.45, 0, 1, 1);
 }
 
