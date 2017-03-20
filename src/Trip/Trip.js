@@ -37,25 +37,27 @@ export default function Trip(props) {
         className="schedule"
         onMouseLeave={ () => { setActiveTripStop(null) } }
       >
-        <div className="line"></div>
-        {
-          stops.map(stop =>
-            stop.departure
-            ? <TripStop
+        <div className="stops">
+          <div className="line"></div>
+          {
+            stops.map(stop =>
+              stop.departure
+              ? <TripStop
                 key={ stop.id }
                 stop={ stop }
                 setActiveTripStop={ setActiveTripStop }
                 yourStop={ thisStop.id === stop.id }
-              >
-                {
-                  tripStatus.distanceAlongTrip > stop.departure.distanceAlongTrip
-                  ? <div className="stopped"><Icon i="checkbox-marked-circle" /></div>
-                  : null
-                }
-              </TripStop>
-            : null
-          )
-        }
+                >
+                  {
+                    tripStatus.distanceAlongTrip > stop.departure.distanceAlongTrip
+                    ? <div className="stopped"><Icon i="checkbox-marked-circle" /></div>
+                    : null
+                  }
+                </TripStop>
+                : null
+              )
+            }
+        </div>
       </div>
     </div>
   )

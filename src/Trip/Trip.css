@@ -1,7 +1,7 @@
 .Trip {
-  flex: 1;
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
 .Trip h2, .Trip h3 {
@@ -53,6 +53,10 @@
   position: relative;
   overflow: scroll;
   flex: 1;
+}
+
+.Trip .stops {
+  position: relative;
 }
 
 .Trip .line {
