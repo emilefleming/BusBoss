@@ -4,6 +4,39 @@
   flex-direction: column;
 }
 
+.Arrivals header {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #EEE;
+  padding-right: 60px;
+}
+
+.Arrivals header .mdi {
+  width: 20px;
+  margin: 20px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #444;
+}
+
+.Arrivals header .mdi-map {
+  display: none;
+}
+
+.Arrivals header h2 {
+  padding: 30px 0;
+  font-weight: 300;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 18px;
+}
+
+.Arrivals header .details {
+  flex: 1;
+  padding: 10px 0;
+}
+
+
 .Arrivals .arrivalList {
   flex: 1;
   overflow: scroll;
@@ -37,4 +70,14 @@
 	100% {
 		width: 100%;
 	}
+}
+
+@media (max-width: 700px) {
+  .Arrivals header {
+    padding-right: 0;
+  }
+
+  .Arrivals header .mdi-map {
+    display: block;
+  }
 }

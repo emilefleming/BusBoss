@@ -5,6 +5,7 @@ import './Stop.css';
 
 export default function Stop(props) {
   const {
+    activeStop,
     arrivals,
     stop,
     setHoverTrip,
@@ -14,11 +15,26 @@ export default function Stop(props) {
     tripStops,
     setActiveTripStop,
     toggleView,
-    animate
+    animate,
+    setActiveStop
   } = props;
 
   return (
     <div className="Stop">
+      {
+        activeStop.id && !clickedTrip
+        ? <Arrivals
+          arrivals={ arrivals }
+          setHoverTrip={ setHoverTrip }
+          setClickedTrip={ setClickedTrip }
+          lastUpdated={ lastUpdated }
+          stop={ stop }
+          animate={ animate }
+          setActiveStop={ setActiveStop }
+          toggleView={ toggleView }
+        />
+        : null
+      }
       {
         clickedTrip
         ? <Trip
@@ -29,14 +45,7 @@ export default function Stop(props) {
             toggleView={ toggleView }
             setClickedTrip={ setClickedTrip }
           />
-        : <Arrivals
-            arrivals={ arrivals }
-            setHoverTrip={ setHoverTrip }
-            setClickedTrip={ setClickedTrip }
-            lastUpdated={ lastUpdated }
-            stop={ stop }
-            animate={ animate }
-          />
+        : null
       }
     </div>
   )

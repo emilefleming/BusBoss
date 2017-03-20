@@ -32,6 +32,7 @@ export default class Nearby extends Component {
     };
 
     this.onMarkerClick = this.onMarkerClick.bind(this);
+    this.setActiveStop = this.setActiveStop.bind(this);
     this.setHoverTrip = this.setHoverTrip.bind(this);
     this.setClickedTrip = this.setClickedTrip.bind(this);
     this.toggleView = this.toggleView.bind(this);
@@ -74,6 +75,19 @@ export default class Nearby extends Component {
   }
 
   onMarkerClick(stop) {
+    this.setActiveStop(stop)
+  }
+
+  setActiveStop(stop) {
+    if (!stop) {
+      socket.emit('leave', {
+        room: `stop-${this.state.activeStop.id}`
+      });
+
+      this.toggleView()
+      return this.setState({ activeStop: {}, arrivals: []})
+    }
+
     socket.emit('room', {
       room: `stop-${stop.id}`,
       oldRoom: `stop-${this.state.activeStop.id}`
@@ -81,15 +95,15 @@ export default class Nearby extends Component {
 
     this.toggleView()
     axios.get(`/api/stops/${stop.id}/arrivals`)
-      .then(response => {
-        this.setState({
-          arrivals: response.data,
-          lastUpdated: moment(),
-          activeStop: stop,
-          animate: true
-        })
+    .then(response => {
+      this.setState({
+        arrivals: response.data,
+        lastUpdated: moment(),
+        activeStop: stop,
+        animate: true
       })
-      .catch(err => {console.log(err)})
+    })
+    .catch(err => {console.log(err)})
   }
 
   setHoverTrip(arrival) {
@@ -195,6 +209,7 @@ export default class Nearby extends Component {
   render() {
     const {
       onMarkerClick,
+      setActiveStop,
       setHoverTrip,
       setClickedTrip,
       setMapRef,
@@ -220,6 +235,7 @@ export default class Nearby extends Component {
     return (
       <div className="Nearby">
         <Stop
+          activeStop={ activeStop }
           arrivals={ arrivals }
           stop={ activeStop }
           setHoverTrip={ setHoverTrip }
@@ -230,6 +246,7 @@ export default class Nearby extends Component {
           setActiveTripStop={ setActiveTripStop }
           toggleView={ toggleView }
           animate={ animate }
+          setActiveStop={ setActiveStop }
         />
         {
           (mapHidden && window.innerWidth <= 700)

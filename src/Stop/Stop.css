@@ -6,23 +6,3 @@
   position: relative;
   z-index: 1;
 }
-
-.Stop .stopInfo {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border-bottom: 1px solid #DDD;
-}
-
-.Stop .stopInfo h2 {
-  padding: 30px 0;
-  font-weight: 300;
-  text-transform: uppercase;
-  font-size: 18px;
-}
-
-.Stop .stopInfo img {
-  width: 100%;
-  border: 1px solid #CCC;
-}
