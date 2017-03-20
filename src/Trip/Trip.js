@@ -15,7 +15,7 @@ export default function Trip(props) {
     setClickedTrip
   } = props;
   const { routeShortName, routeLongName, tripStatus, tripHeadsign } = trip;
-  console.log(trip);
+
   return (
     <div className="Trip">
       <header>
