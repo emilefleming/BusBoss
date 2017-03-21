@@ -35,10 +35,11 @@ nav.Header {
   height: 100%;
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 .Header .navItem:hover {
-  background-color: #FAFAFA;
+  background-color: #EEE;
 }
 
 @media (max-width: 700px) {
