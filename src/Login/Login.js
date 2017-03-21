@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import './Login.css';
 
 export default class Login extends Component {
@@ -11,6 +12,7 @@ export default class Login extends Component {
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    console.log(this.props);
   }
 
   handleChange({ target }) {
@@ -21,6 +23,19 @@ export default class Login extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    const loginObj = {
+      email: this.state.email,
+      password: this.state.password
+    }
+
+    axios.post('/api/token', loginObj)
+      .then(response => {
+        this.props.setUserData(response.data);
+        this.props.history.push('/favorites');
+      })
+      .catch(err => {
+        this.setState({ error: err.response.data })
+      })
   }
 
   render() {
@@ -31,7 +46,12 @@ export default class Login extends Component {
         <form onSubmit={ handleSubmit }>
           <h1>Log In</h1>
           <input placeholder="email" value={ email } onChange={ handleChange } type="text" name="email"></input>
-          <input placeholder="password" value={ password } onChange={ handleChange } type="text" name="password"></input>
+          <input placeholder="password" value={ password } onChange={ handleChange } type="password" name="password"></input>
+          {
+            this.state.error
+            ? <div className="error">{ this.state.error }</div>
+            : null
+          }
           <button>GO</button>
         </form>
       </div>

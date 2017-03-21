@@ -49,3 +49,9 @@
 .Login button:focus {
   outline: none;
 }
+
+.Login .error {
+  text-align: center;
+  margin: 20px 0 25px 0;
+  color: #EF382B;
+}
