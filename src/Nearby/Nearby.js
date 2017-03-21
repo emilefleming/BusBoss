@@ -64,6 +64,15 @@ export default class Nearby extends Component {
     navigator.geolocation.watchPosition(this.setUserPosition, err, options)
   };
 
+  componentWillUnmount() {
+    if (this.state.activeStop.id) {
+      socket.off('arrivals');
+      socket.emit('leave', {
+        room: `stop-${this.state.activeStop.id}`
+      });
+    }
+  }
+
   setUserPosition({ coords }) {
     const lat = coords.latitude;
     const lng = coords.longitude;

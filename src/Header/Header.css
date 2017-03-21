@@ -42,6 +42,11 @@ nav.Header {
   background-color: #EEE;
 }
 
+.Header .navItem a {
+  color: inherit;
+  text-decoration: none;
+}
+
 @media (max-width: 700px) {
   nav.Header {
     height: 60px;
