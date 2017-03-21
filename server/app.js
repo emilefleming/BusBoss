@@ -18,6 +18,8 @@ app.use(cookieParser());
 
 app.use('/api/stops', require('./routes/stops'));
 app.use('/api/trip', require('./routes/trips'));
+app.use('/api/users', require('./routes/users'));
+app.use('/api/token', require('./routes/token'));
 
 app.use(express.static(path.resolve(__dirname, '..', 'build')));
 
@@ -33,7 +35,7 @@ app.use((req, res, next) => {
 });
 
 app.use((err, _req, res, _next) => {
-  console.log(err);
+  console.log(err.stack);
   if (err.status) {
     return res
     .status(err.status)
