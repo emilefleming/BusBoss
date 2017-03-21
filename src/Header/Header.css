@@ -42,7 +42,7 @@ nav.Header {
   background-color: #EEE;
 }
 
-.Header .navItem a {
+.Header a {
   color: inherit;
   text-decoration: none;
 }

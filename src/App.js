@@ -4,6 +4,7 @@ import './App.css';
 import Page from './Page/Page';
 import Nearby from './Nearby/Nearby';
 import Favorites from './Favorites/Favorites';
+import Login from './Login/Login';
 
 class App extends Component {
   render() {
@@ -13,6 +14,7 @@ class App extends Component {
           <Page>
             <Route exact path='/' component={ Nearby } />
             <Route path='/favorites' component={ Favorites } />
+            <Route path='/login' component={ Login } />
           </Page>
         </Router>
       </div>

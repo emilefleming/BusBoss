@@ -6,13 +6,13 @@ export default function Header() {
   return (
     <nav className="Header">
       <div className="navbar">
-        <div className="navItem"><Link to="/">Map</Link></div>
-        <div className="navItem"><Link to="/favorites">Favorites</Link></div>
+        <Link to="/"><div className="navItem">Map</div></Link>
+        <Link to="/favorites"><div className="navItem">Favorites</div></Link>
         <div className="logo">
           <img src="/icons/logo.svg" alt="Logo"/>
         </div>
-        <div className="navItem"><Link to="/">Login</Link></div>
-        <div className="navItem"><Link to="/">Signup</Link></div>
+        <Link to="/login"><div className="navItem">Login</div></Link>
+        <Link to="/"><div className="navItem">Signup</div></Link>
       </div>
     </nav>
   )
