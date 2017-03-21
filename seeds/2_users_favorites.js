@@ -7,17 +7,20 @@ exports.seed = function(knex) {
         {
           id: 1,
           user_id: 1,
-          stop_id: '1_1552'
+          stop_id: '1_1552',
+          route_id: '23_102638'
         },
         {
           id: 2,
           user_id: 1,
-          stop_id: '1_1550'
+          stop_id: '1_1550',
+          route_id: '1_100219'
         },
         {
           id: 3,
           user_id: 1,
-          stop_id: '1_27210'
+          stop_id: '1_27210',
+          route_id: '1_100161'
         }
       ]);
     })
