@@ -10,6 +10,24 @@ const { camelizeKeys } = require('humps');
 const ev = require('express-validation');
 const validations = require('../validations/token');
 
+router.get('/', (req, res, next) => {
+  jwt.verify(req.cookies.token, process.env.JWT_KEY, (err, payload) => {
+    if (err) {
+      return res.send(false);
+    }
+
+    knex('users')
+      .where('id', payload.userId)
+      .first()
+      .then(row => {
+        const user = camelizeKeys(row);
+        delete user.hashedPassword;
+        res.send(user);
+      })
+      .catch(err => next(err));
+  });
+});
+
 router.post('/', ev(validations.post), (req, res, next) => {
   const { email, password } = req.body;
 

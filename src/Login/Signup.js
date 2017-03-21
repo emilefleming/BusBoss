@@ -8,7 +8,9 @@ export default class Login extends Component {
 
     this.state = {
       email: '',
-      password: ''
+      username: '',
+      password: '',
+      confirmPassword: ''
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -24,11 +26,14 @@ export default class Login extends Component {
     event.preventDefault();
     const loginObj = {
       email: this.state.email,
-      password: this.state.password
+      username: this.state.username,
+      password: this.state.password,
+      confirmPassword: this.state.confirmPassword
     }
 
-    axios.post('/api/token', loginObj)
+    axios.post('/api/users', loginObj)
       .then(response => {
+        console.log(response);
         this.props.setUserData(response.data);
         this.props.history.push('/favorites');
       })
@@ -39,13 +44,39 @@ export default class Login extends Component {
 
   render() {
     const { state, handleChange, handleSubmit } = this;
-    const { email, password } = state
+    const { email, password, username, confirmPassword } = state;
     return(
       <div className="Login">
         <form onSubmit={ handleSubmit }>
-          <h1>Log In</h1>
-          <input placeholder="email" value={ email } onChange={ handleChange } type="text" name="email"></input>
-          <input placeholder="password" value={ password } onChange={ handleChange } type="password" name="password"></input>
+          <h1>Sign Up</h1>
+          <input
+            placeholder="email"
+            value={ email }
+            onChange={ handleChange }
+            type="text"
+            name="email"
+          />
+          <input
+            placeholder="username"
+            value={ username }
+            onChange={ handleChange }
+            type="text"
+            name="username"
+          />
+          <input
+            placeholder="password"
+            value={ password }
+            onChange={ handleChange }
+            type="password"
+            name="password"
+          />
+          <input
+            placeholder="confirm password"
+            value={ confirmPassword }
+            onChange={ handleChange }
+            type="password"
+            name="confirmPassword"
+          />
           {
             this.state.error
             ? <div className="error">{ this.state.error }</div>

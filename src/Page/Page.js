@@ -1,19 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Header from '../Header/Header';
 import './Page.css';
 
-export default class Page extends Component {
-  constructor(props) {
-    super(props)
-  }
-
-  render() {
-    const { props } = this;
+export default function Page(props) {
     return (
       <div className="Page">
-        <Header />
+        <Header userData={ props.userData } logOut={ props.logOut }/>
         { props.children }
       </div>
     )
-  }
 }
