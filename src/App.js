@@ -51,7 +51,7 @@ class App extends Component {
           <Page userData={ this.state.userData } logOut={ this.logOut }>
             <Route exact
               path='/'
-              render={ props => <Nearby /> }
+              render={ props => <Nearby userData={ this.state.userData }/> }
             />
             <Route
               path='/favorites'
@@ -59,11 +59,11 @@ class App extends Component {
             />
             <Route
               path='/login'
-              render={ props => <Login setUserData={this.setUserData} {...props} /> }
+              render={ props => <Login setUserData={ this.setUserData } {...props} /> }
             />
             <Route
               path='/signup'
-              render={ props => <Signup setUserData={this.setUserData} {...props} /> }
+              render={ props => <Signup setUserData={ this.setUserData } {...props} /> }
             />
           </Page>
         </Router>

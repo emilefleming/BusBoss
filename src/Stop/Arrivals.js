@@ -2,11 +2,29 @@ import React from 'react'
 import Arrival from '../Arrival/Arrival';
 import './Arrivals.css';
 import Icon from '../Icon/Icon'
+import FavoriteButton from '../Favorites/FavoriteButton';
 
 export default function Arrivals(props) {
   const {
-    arrivals, setHoverTrip, setClickedTrip, lastUpdated, stop, animate, toggleView, setActiveStop
+    arrivals,
+    setHoverTrip,
+    setClickedTrip,
+    lastUpdated,
+    stop,
+    animate,
+    toggleView,
+    setActiveStop,
+    favorites,
+    toggleFavorite
   } = props;
+
+  const isFavorite = favorites.reduce((acc, favorite) => {
+    if (favorite.stopId === stop.id && !favorite.routeId) {
+      return acc = favorite;
+    }
+    return acc;
+  }, false)
+
   return (
     <div className="Arrivals">
       <header>
@@ -36,6 +54,11 @@ export default function Arrivals(props) {
           )
         }
       </div>
+      <FavoriteButton
+        isFavorite={ isFavorite }
+        toggleFavorite={ toggleFavorite }
+        stop={ stop }
+      />
     </div>
   )
 }

@@ -16,7 +16,6 @@ export default class Favorites extends Component {
     this.removeFavorite = this.removeFavorite.bind(this);
 
     socket.on('arrivals', data => {
-      console.log(data);
       this.setState({ animate: false }, () => {
         const favorites = this.state.favorites.map(favorite => {
           if (favorite.data.entry.id === data[0].stopId) {
@@ -99,7 +98,7 @@ export default class Favorites extends Component {
         {
           this.state.favorites.map(favorite =>
             <Favorite
-              key={favorite.data.entry.id}
+              key={favorite.id}
               favorite={ favorite }
               removeFavorite={ this.removeFavorite }
             />

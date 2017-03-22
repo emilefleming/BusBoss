@@ -1,0 +1,22 @@
+.FavoriteButton {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  color: #EF382B;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 20px 0;
+  border-top: 1px solid #EEE;
+}
+
+.FavoriteButton .mdi {
+  margin-left: 5px;
+  font-size: 24px;
+}
+
+.FavoriteButton:hover {
+  color: white;
+  background-color: #EF382B;
+}

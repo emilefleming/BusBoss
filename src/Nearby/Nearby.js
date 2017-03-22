@@ -40,6 +40,7 @@ export default class Nearby extends Component {
     this.setActiveTripStop = this.setActiveTripStop.bind(this);
     this.setUserPosition = this.setUserPosition.bind(this);
     this.setMapEventListeners = this.setMapEventListeners.bind(this);
+    this.toggleFavorite = this.toggleFavorite.bind(this);
 
     socket.on('arrivals', data => {
       this.setState({ animate: false }, () => {
@@ -61,8 +62,18 @@ export default class Nearby extends Component {
 
     function err(err) { console.log(err); }
 
-    navigator.geolocation.watchPosition(this.setUserPosition, err, options)
+    navigator.geolocation.watchPosition(this.setUserPosition, err, options);
   };
+
+  componentDidUpdate() {
+    if (!this.state.hasFavorites && this.props.userData) {
+      axios.get(`/api/favorites/${this.props.userData.id}/list`)
+        .then(response => {
+          const favorites = response.data;
+          this.setState({ favorites, hasFavorites: true })
+        })
+    }
+  }
 
   componentWillUnmount() {
     if (this.state.activeStop.id) {
@@ -215,6 +226,42 @@ export default class Nearby extends Component {
     });
   }
 
+  toggleFavorite(favorite, isFavorite, trip) {
+    if (isFavorite) {
+      axios.delete(`/api/favorites/${this.props.userData.id}/${favorite.id}`)
+        .then(response => {
+          const favorites = this.state.favorites.filter(fav =>
+            fav.id !== favorite.id
+          )
+
+          this.setState({ favorites });
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    }
+    else {
+      const newFavorite = {
+        stopId: favorite.id
+      }
+
+      if (trip) {
+        newFavorite.routeId = trip.routeId;
+        newFavorite.routeName = trip.routeShortName;
+      }
+
+      axios.post(`/api/favorites/${this.props.userData.id}`, newFavorite)
+        .then(response => {
+          const favorites = [...this.state.favorites];
+          favorites.push(response.data);
+          this.setState({ favorites });
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    }
+  }
+
   render() {
     const {
       onMarkerClick,
@@ -223,7 +270,8 @@ export default class Nearby extends Component {
       setClickedTrip,
       setMapRef,
       setActiveTripStop,
-      toggleView
+      toggleView,
+      toggleFavorite
     } = this;
     const {
       stops,
@@ -238,7 +286,8 @@ export default class Nearby extends Component {
       activeTripStop,
       mapRef,
       userPosition,
-      animate
+      animate,
+      favorites
     } = this.state;
 
     return (
@@ -256,6 +305,8 @@ export default class Nearby extends Component {
           toggleView={ toggleView }
           animate={ animate }
           setActiveStop={ setActiveStop }
+          favorites={ favorites }
+          toggleFavorite={ toggleFavorite }
         />
         {
           (mapHidden && window.innerWidth <= 700)

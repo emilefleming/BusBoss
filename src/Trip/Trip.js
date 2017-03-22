@@ -4,6 +4,7 @@ import Icon from '../Icon/Icon';
 
 import TripStop from './TripStop';
 import Timeliness from '../Timeliness/Timeliness';
+import FavoriteButton from '../Favorites/FavoriteButton';
 
 export default function Trip(props) {
   const {
@@ -12,9 +13,17 @@ export default function Trip(props) {
     setActiveTripStop,
     thisStop,
     toggleView,
-    setClickedTrip
+    setClickedTrip,
+    favorites,
+    toggleFavorite
   } = props;
   const { routeShortName, routeLongName, tripStatus, tripHeadsign } = trip;
+  const isFavorite = favorites.reduce((acc, favorite) => {
+    if (favorite.stopId === thisStop.id && favorite.routeId === trip.routeId) {
+      return acc = favorite;
+    }
+    return acc;
+  }, false)
 
   return (
     <div className="Trip">
@@ -59,6 +68,12 @@ export default function Trip(props) {
             }
         </div>
       </div>
+      <FavoriteButton
+        isFavorite={ isFavorite }
+        toggleFavorite={ toggleFavorite }
+        stop={ thisStop }
+        trip={ trip }
+      />
     </div>
   )
 }

@@ -6,7 +6,6 @@ import moment from 'moment';
 
 export default function Favorite(props) {
   const { favorite, removeFavorite } = props;
-  console.log(favorite);
   return (
     <div className="Favorite">
       <header>

@@ -44,18 +44,27 @@ router.get('/:id', authorize, (req, res, next) => {
     .catch(err => next(err));
 });
 
+router.get('/:id/list', authorize, (req, res, next) => {
+  knex('users_favorites')
+    .where('user_id', req.claim.userId)
+    .then(response => {
+      res.send(camelizeKeys(response));
+    })
+});
+
 router.post('/:id', authorize, ev(validations.post), (req, res, next) => {
-  const { stopId, routeId } = req.body;
+  const { stopId, routeId, routeName } = req.body;
   const newFavorite = decamelizeKeys({
     userId: req.claim.userId,
     stopId,
-    routeId
+    routeId,
+    routeName
   })
 
   knex('users_favorites')
     .insert(newFavorite, '*')
-    .then(favorite => {
-      res.send(favorite);
+    .then(favorites => {
+      res.send(camelizeKeys(favorites[0]));
     })
     .catch(err => next(err));
 });
