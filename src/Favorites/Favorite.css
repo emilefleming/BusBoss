@@ -56,3 +56,12 @@
   color: white;
   font-size: 24px;
 }
+
+@media (max-width: 700px) {
+  .Favorite {
+    width: 100%;
+    max-height: none;
+    margin: 0 0 10px 0;
+    border-top: 1px solid #EEE;
+  }
+}
