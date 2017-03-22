@@ -1,6 +1,7 @@
 import React from 'react';
 import './Favorite.css';
 import Arrival from '../Arrival/Arrival';
+import Icon from '../Icon/Icon';
 import moment from 'moment';
 
 export default function Favorite(props) {
@@ -37,6 +38,7 @@ export default function Favorite(props) {
             )
         }
       </div>
+      <div className="close" title="Delete Favorite"><Icon i="close" /></div>
     </div>
   )
 }
