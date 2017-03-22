@@ -37,7 +37,7 @@ export default function Stop(props) {
           animate={ animate }
           setActiveStop={ setActiveStop }
           toggleView={ toggleView }
-          favorites={ favorites }
+          favorites={ favorites || [] }
           toggleFavorite={ toggleFavorite }
         />
         : null
@@ -51,7 +51,7 @@ export default function Stop(props) {
             thisStop={ stop }
             toggleView={ toggleView }
             setClickedTrip={ setClickedTrip }
-            favorites={ favorites }
+            favorites={ favorites || [] }
             toggleFavorite={ toggleFavorite }
           />
         : null
