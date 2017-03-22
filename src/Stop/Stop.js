@@ -1,6 +1,7 @@
 import React from 'react';
 import Arrivals from './Arrivals';
 import Trip from '../Trip/Trip';
+import Search from '../Search/Search';
 import './Stop.css';
 
 export default function Stop(props) {
@@ -52,6 +53,11 @@ export default function Stop(props) {
             toggleFavorite={ toggleFavorite }
           />
         : null
+      }
+      {
+        !activeStop.id
+          ? <Search />
+          : null
       }
     </div>
   )

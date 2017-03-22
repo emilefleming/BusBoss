@@ -1,0 +1,16 @@
+.Search {
+
+}
+
+.Search .geosuggest input {
+  border: 1px solid #EEE;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 20px 10px;
+  background-color: #EEE;
+}
+
+.Search .geosuggest input:focus {
+  outline: none;
+  background-color: white;
+}
