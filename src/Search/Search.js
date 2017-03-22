@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './Search.css';
 import Geosuggest from 'react-geosuggest'
 
+import Icon from '../Icon/Icon'
+
 export default class Search extends Component {
   constructor(props) {
     super(props);
@@ -29,10 +31,19 @@ export default class Search extends Component {
 
   render() {
     const { props, selectPlace, pickLocation } = this;
-    const { userPosition } = props;
+    const { userPosition, toggleView } = props;
     return (
       <div className="Search">
-        <h1>Places</h1>
+        <header>
+          <div>
+          </div>
+          <div className="details">
+            <h2>Places</h2>
+          </div>
+          <div onClick={ toggleView }>
+            <Icon i="map"/>
+          </div>
+        </header>
         <Geosuggest
           ref={ el => this.geosuggest = el }
           placeholder="Search..."

@@ -1,0 +1,29 @@
+.Legend ul {
+  margin: 0;
+  padding: 10px 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  border-top: 1px solid #DDD;
+  background-color: #EEE;
+}
+
+.Legend li {
+  display: block;
+  display: flex;
+  align-items: center;
+  font-weight: 300;
+  color: #999;
+  font-size: 14px;
+  padding: 15px 0;
+  width: 35%;
+}
+
+.Legend li:hover {
+  color: black;
+}
+
+.Legend li img {
+  width: 20px;
+  margin-right: 10px;
+}

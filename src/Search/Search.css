@@ -1,5 +1,5 @@
 .Search {
-
+  flex: 1;
 }
 
 .Search h1 {
@@ -10,14 +10,14 @@
 }
 
 .Search .geosuggest input {
-  border: 1px solid #EEE;
+  border: none;
   box-sizing: border-box;
   width: 100%;
   padding: 12px 18px;
-  background-color: #EEE;
   font-size: 16px;
   font-weight: 300;
   border-top: 1px solid #DDD;
+  border-bottom: 1px solid #DDD;
 }
 
 .Search .geosuggest input:focus {
@@ -41,9 +41,51 @@
   border-bottom: 1px solid #EEE;
   overflow: hidden;
   color: #888;
+  background-color: white;
 }
 
 .Search .geosuggest li:hover, .Search .geosuggest .geosuggest__item--active {
   color: white;
   background-color: #EF382B;
+}
+
+.Search header {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #EEE;
+}
+
+.Search header .mdi {
+  width: 20px;
+  margin: 20px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #444;
+}
+
+.Search header .mdi-map {
+  display: none;
+}
+
+.Search header h2 {
+  padding: 20px 0;
+  font-weight: 300;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 18px;
+}
+
+.Search header .details {
+  flex: 1;
+  padding: 10px 0;
+}
+
+@media (max-width: 700px) {
+  .Search header {
+    padding-left: 60px;
+  }
+
+  .Search header .mdi-map {
+    display: block;
+  }
 }

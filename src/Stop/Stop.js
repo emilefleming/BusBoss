@@ -1,7 +1,7 @@
 import React from 'react';
 import Arrivals from './Arrivals';
 import Trip from '../Trip/Trip';
-import Search from '../Search/Search';
+import NoStop from './NoStop';
 import './Stop.css';
 
 export default function Stop(props) {
@@ -58,7 +58,11 @@ export default function Stop(props) {
       }
       {
         !activeStop.id
-          ? <Search userPosition={ userPosition} centerMap={ centerMap }/>
+          ? <NoStop
+            userPosition={ userPosition}
+            centerMap={ centerMap }
+            toggleView={ toggleView }
+          />
           : null
       }
     </div>
