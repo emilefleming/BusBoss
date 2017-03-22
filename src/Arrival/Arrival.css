@@ -5,6 +5,7 @@
   border-bottom: 1px solid #EEE;
   height: 60px;
   cursor: pointer;
+  background-color: white;
 }
 
 .Arrival:hover {

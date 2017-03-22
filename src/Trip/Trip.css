@@ -53,6 +53,8 @@
   position: relative;
   overflow: scroll;
   flex: 1;
+  border-top: 1px solid #DDD;
+  border-bottom: 1px solid #DDD;
 }
 
 .Trip .stops {
