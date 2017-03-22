@@ -5,7 +5,7 @@ import Icon from '../Icon/Icon';
 import moment from 'moment';
 
 export default function Favorite(props) {
-  const { favorite } = props;
+  const { favorite, removeFavorite } = props;
   console.log(favorite);
   return (
     <div className="Favorite">
@@ -38,7 +38,12 @@ export default function Favorite(props) {
             )
         }
       </div>
-      <div className="close" title="Delete Favorite"><Icon i="close" /></div>
+      <div
+        className="close"
+        title="Delete Favorite"
+        onClick={ () => {removeFavorite(favorite.id)} }>
+        <Icon i="close" />
+      </div>
     </div>
   )
 }

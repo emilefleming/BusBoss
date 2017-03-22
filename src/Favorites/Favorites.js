@@ -8,6 +8,8 @@ export default class Favorites extends Component {
     super(props);
 
     this.state = { favorites: [] }
+
+    this.removeFavorite = this.removeFavorite.bind(this);
   }
 
   componentDidMount() {
@@ -35,12 +37,31 @@ export default class Favorites extends Component {
     })
   };
 
+  removeFavorite(id) {
+    console.log(id);
+    axios.delete(`/api/favorites/${this.props.userData.id}/${id}`)
+      .then(response => {
+        const favorites = this.state.favorites.filter(favorite =>
+          favorite.id !== id
+        )
+
+        this.setState({ favorites });
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
   render() {
     return (
       <div className="Favorites">
         {
           this.state.favorites.map(favorite =>
-            <Favorite key={favorite.data.entry.id} favorite={ favorite } />
+            <Favorite
+              key={favorite.data.entry.id}
+              favorite={ favorite }
+              removeFavorite={ this.removeFavorite }
+            />
           )
         }
       </div>
