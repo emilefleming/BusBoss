@@ -19,7 +19,9 @@ export default function Stop(props) {
     animate,
     setActiveStop,
     favorites,
-    toggleFavorite
+    toggleFavorite,
+    userPosition,
+    centerMap
   } = props;
 
   return (
@@ -56,7 +58,7 @@ export default function Stop(props) {
       }
       {
         !activeStop.id
-          ? <Search />
+          ? <Search userPosition={ userPosition} centerMap={ centerMap }/>
           : null
       }
     </div>

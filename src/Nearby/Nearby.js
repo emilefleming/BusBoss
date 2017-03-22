@@ -41,6 +41,7 @@ export default class Nearby extends Component {
     this.setUserPosition = this.setUserPosition.bind(this);
     this.setMapEventListeners = this.setMapEventListeners.bind(this);
     this.toggleFavorite = this.toggleFavorite.bind(this);
+    this.centerMap = this.centerMap.bind(this);
 
     socket.on('arrivals', data => {
       this.setState({ animate: false }, () => {
@@ -266,6 +267,15 @@ export default class Nearby extends Component {
     }
   }
 
+  centerMap(center, zoom) {
+    const { mapRef } = this.state;
+
+    mapRef.setCenter(center);
+    if (zoom) {
+      mapRef.setZoom(zoom);
+    }
+  }
+
   render() {
     const {
       onMarkerClick,
@@ -275,7 +285,8 @@ export default class Nearby extends Component {
       setMapRef,
       setActiveTripStop,
       toggleView,
-      toggleFavorite
+      toggleFavorite,
+      centerMap
     } = this;
     const {
       stops,
@@ -291,7 +302,7 @@ export default class Nearby extends Component {
       mapRef,
       userPosition,
       animate,
-      favorites
+      favorites,
     } = this.state;
 
     return (
@@ -311,6 +322,8 @@ export default class Nearby extends Component {
           setActiveStop={ setActiveStop }
           favorites={ favorites }
           toggleFavorite={ toggleFavorite }
+          userPosition={ userPosition }
+          centerMap={ centerMap }
         />
         {
           (mapHidden && window.innerWidth <= 700)
