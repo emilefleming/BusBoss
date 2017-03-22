@@ -51,11 +51,11 @@ class App extends Component {
           <Page userData={ this.state.userData } logOut={ this.logOut }>
             <Route exact
               path='/'
-              render={ props => <Nearby {...props} /> }
+              render={ props => <Nearby /> }
             />
             <Route
               path='/favorites'
-              render={ props => <Favorites {...props} /> }
+              render={ props => <Favorites userData={ this.state.userData } /> }
             />
             <Route
               path='/login'

@@ -26,6 +26,7 @@ router.get('/:id', authorize, (req, res, next) => {
               .then(arrivals => {
                 stop.arrivals = arrivals;
                 stop.favoriteRoute = favorite.routeId;
+                stop.favoriteRouteName = favorite.routeName;
                 resolve(stop);
               })
               .catch(err => {

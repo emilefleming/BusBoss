@@ -1,0 +1,10 @@
+.Favorites {
+  flex: 1;
+  background-color: #EEE;
+  display: flex;
+  flex-wrap: wrap;
+  align-items:flex-start;
+  align-content:flex-start;
+  padding: 5px;
+  overflow: scroll;
+}
