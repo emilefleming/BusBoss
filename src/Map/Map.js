@@ -124,7 +124,7 @@ export default class Map extends Component {
                   icon={ icon('selected') }
                   position={ {lat: activeStop.lat, lng: activeStop.lon} }
                   onClick={ () => onMarkerClick(activeStop) }
-                  options={{ zIndex: 2 }}
+                  options={{ zIndex: 2, scale: 1 }}
                 />
                 : null
               }
@@ -133,7 +133,7 @@ export default class Map extends Component {
                   ? <Marker
                   icon={ icon('user') }
                   position={ {lat: userPosition.lat, lng: userPosition.lng} }
-                  options={{ zIndex: 3, scale: 2 }}
+                  options={{ zIndex: 3, scale: 4 }}
                 />
                 : null
               }
