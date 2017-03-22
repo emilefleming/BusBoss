@@ -62,7 +62,9 @@ export default class Nearby extends Component {
 
     function err(err) { console.log(err); }
 
-    navigator.geolocation.watchPosition(this.setUserPosition, err, options);
+    const geoWatch = navigator.geolocation.watchPosition(this.setUserPosition, err, options);
+    this.setState({ geoWatch })
+    console.log('did mount');
   };
 
   componentDidUpdate() {
@@ -76,6 +78,7 @@ export default class Nearby extends Component {
   }
 
   componentWillUnmount() {
+    navigator.geolocation.clearWatch(this.state.geoWatch)
     if (this.state.activeStop.id) {
       socket.off('arrivals');
       socket.emit('leave', {
@@ -85,6 +88,7 @@ export default class Nearby extends Component {
   }
 
   setUserPosition({ coords }) {
+    console.log('user position');
     const lat = coords.latitude;
     const lng = coords.longitude;
 
