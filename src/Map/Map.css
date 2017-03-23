@@ -18,6 +18,10 @@
   font-size: 24px;
 }
 
+.Map div:last-child {
+  width: 100%;
+}
+
 @media (max-width: 700px) {
   .Map .backButton {
     display: flex;
