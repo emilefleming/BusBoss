@@ -26,7 +26,6 @@ export default class Nearby extends Component {
       stops: [],
       arrivals: [],
       activeStop: {},
-      mapHidden: false,
       tripStops: [],
       activeTripStop: {}
     };
@@ -109,7 +108,6 @@ export default class Nearby extends Component {
         room: `stop-${this.state.activeStop.id}`
       });
 
-      this.toggleView()
       return this.setState({ activeStop: {}, arrivals: []})
     }
 
@@ -199,10 +197,10 @@ export default class Nearby extends Component {
   toggleView() {
     console.log('view toggled');
     if (window.innerWidth > 700) {
-      return this.setState({ mapHidden: false });
+      return this.setState({ sidebarHidden: false });
     }
     this.setState({
-      mapHidden: !this.state.mapHidden
+      sidebarHidden: !this.state.sidebarHidden
     })
   };
 
@@ -293,7 +291,7 @@ export default class Nearby extends Component {
       arrivals,
       activeStop,
       hoverTrip,
-      mapHidden,
+      sidebarHidden,
       lastUpdated,
       clickedTrip,
       mapBounds,
@@ -307,44 +305,45 @@ export default class Nearby extends Component {
 
     return (
       <div className="Nearby">
-        <Stop
-          activeStop={ activeStop }
-          arrivals={ arrivals }
-          stop={ activeStop }
-          setHoverTrip={ setHoverTrip }
-          lastUpdated={ lastUpdated }
-          setClickedTrip={ setClickedTrip }
-          clickedTrip={ clickedTrip }
-          tripStops={ tripStops }
-          setActiveTripStop={ setActiveTripStop }
-          toggleView={ toggleView }
-          animate={ animate }
-          setActiveStop={ setActiveStop }
-          favorites={ favorites }
-          toggleFavorite={ toggleFavorite }
-          userPosition={ userPosition }
-          centerMap={ centerMap }
-        />
         {
-          (mapHidden && window.innerWidth <= 700)
+          sidebarHidden && window.innerWidth <= 700
           ? null
-          : <div className="map">
-              <Map
-                stops={ stops }
-                arrivals={ arrivals }
-                onMarkerClick={ onMarkerClick }
-                activeStop={ activeStop }
-                activeTrip={ clickedTrip || hoverTrip }
-                clickedTrip={ clickedTrip }
-                setMapRef={ setMapRef }
-                bounds={ mapBounds }
-                tripStops={ tripStops }
-                activeTripStop={ activeTripStop }
-                mapRef={ mapRef }
-                userPosition={ userPosition }
-              />
-            </div>
+          : <Stop
+            activeStop={ activeStop }
+            arrivals={ arrivals }
+            stop={ activeStop }
+            setHoverTrip={ setHoverTrip }
+            lastUpdated={ lastUpdated }
+            setClickedTrip={ setClickedTrip }
+            clickedTrip={ clickedTrip }
+            tripStops={ tripStops }
+            setActiveTripStop={ setActiveTripStop }
+            toggleView={ toggleView }
+            animate={ animate }
+            setActiveStop={ setActiveStop }
+            favorites={ favorites }
+            toggleFavorite={ toggleFavorite }
+            userPosition={ userPosition }
+            centerMap={ centerMap }
+          />
         }
+        <div className="map">
+          <Map
+            stops={ stops }
+            arrivals={ arrivals }
+            onMarkerClick={ onMarkerClick }
+            activeStop={ activeStop }
+            activeTrip={ clickedTrip || hoverTrip }
+            clickedTrip={ clickedTrip }
+            setMapRef={ setMapRef }
+            bounds={ mapBounds }
+            tripStops={ tripStops }
+            activeTripStop={ activeTripStop }
+            mapRef={ mapRef }
+            userPosition={ userPosition }
+            toggleView={ toggleView }
+          />
+        </div>
       </div>
     )
   }

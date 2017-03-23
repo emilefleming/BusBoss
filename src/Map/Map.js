@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { GoogleMapLoader, GoogleMap, Marker, Polyline } from 'react-google-maps';
 import './Map.css';
-import mapStyles from './mapStyles.json'
+import mapStyles from './mapStyles.json';
+import Icon from '../Icon/Icon'
 
 function icon(name) {
   let url = `/icons/stops/${ name }.png`
@@ -23,6 +24,13 @@ export default class Map extends Component {
     super(props)
 
     this.generateStopIcons = this.generateStopIcons.bind(this);
+    console.log('map constructor');
+  }
+
+  componentDidUpdate() {
+    if (this.props.mapRef) {
+      window.google.maps.event.trigger(this.props.mapRef,'resize')
+    }
   }
 
   generateStopIcons() {
@@ -79,11 +87,15 @@ export default class Map extends Component {
       activeTrip,
       activeStop,
       setMapRef,
-      userPosition
+      userPosition,
+      toggleView
     } = this.props
 
     return (
       <div className="Map">
+        <div className="backButton" onClick={ toggleView }>
+          <Icon i='arrow-left'/>
+        </div>
         <GoogleMapLoader
           containerElement={
             <div
@@ -98,7 +110,9 @@ export default class Map extends Component {
               defaultOptions={{
                 styles: mapStyles,
                 center: { lat: 47.6062, lng: -122.3321 },
-                zoom: 16
+                zoom: 16,
+                fullscreenControl: false,
+                mapTypeControl: false
               }}
               ref={ (map) => { setMapRef(map) } }
               onDragEnd={ this.handleMapChange }
