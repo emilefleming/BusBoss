@@ -3,7 +3,9 @@ import axios from 'axios';
 import moment from 'moment';
 import Map from '../Map/Map';
 import Stop from '../Stop/Stop';
+import { Route } from 'react-router-dom';
 import './Nearby.css';
+import NoStop from '../Stop/NoStop';
 
 import io from 'socket.io-client';
 const socket = io()
@@ -41,18 +43,6 @@ export default class Nearby extends Component {
     this.setMapEventListeners = this.setMapEventListeners.bind(this);
     this.toggleFavorite = this.toggleFavorite.bind(this);
     this.centerMap = this.centerMap.bind(this);
-
-    socket.on('arrivals', data => {
-      this.setState({ animate: false }, () => {
-        setTimeout(() => {
-          this.setState({
-            arrivals: data,
-            lastUpdated: moment(),
-            animate: true
-          });
-        }, 0)
-      })
-    });
   };
 
   componentDidMount() {
@@ -103,30 +93,7 @@ export default class Nearby extends Component {
   }
 
   setActiveStop(stop) {
-    if (!stop) {
-      socket.emit('leave', {
-        room: `stop-${this.state.activeStop.id}`
-      });
-
-      return this.setState({ activeStop: {}, arrivals: []})
-    }
-
-    socket.emit('room', {
-      room: `stop-${stop.id}`,
-      oldRoom: `stop-${this.state.activeStop.id}`
-    });
-
-    this.toggleView()
-    axios.get(`/api/stops/${stop.id}/arrivals`)
-    .then(response => {
-      this.setState({
-        arrivals: response.data,
-        lastUpdated: moment(),
-        activeStop: stop,
-        animate: true
-      })
-    })
-    .catch(err => {console.log(err)})
+    this.props.routeProps.history.push(`/map/stops/${stop.id}`);
   }
 
   setHoverTrip(arrival) {
@@ -158,32 +125,11 @@ export default class Nearby extends Component {
     }
 
     mapRef.fitBounds(getBounds(arrival.shape));
-    axios.get(`/api/trip/${arrival.tripId}`)
-      .then(response => {
-        const { entry, references } = response.data;
-        const stopObj = entry.schedule.stopTimes.reduce((acc, stop) => {
-          acc[stop.stopId] = {
-            departureTime: moment(stop.departureTime * 1000 + entry.serviceDate),
-            distanceAlongTrip: stop.distanceAlongTrip
-          }
-          return acc;
-        }, {})
+    const { routeProps } = this.props;
+    const tripUrl = `${routeProps.location.pathname}trips/${arrival.tripId}`
 
-        const tripStops = references.stops.map(stop => {
-          stop.departure = stopObj[stop.id]
-          return stop;
-        })
-
-        this.setState({
-          tripStops,
-          savedMapView: saveMapView,
-          clickedTrip: arrival,
-          hoverTrip: null
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      })
+    routeProps.history.push(tripUrl);
+    this.setState({ clickedTrip: arrival })
   }
 
   setActiveTripStop(stop) {
@@ -306,27 +252,41 @@ export default class Nearby extends Component {
     return (
       <div className="Nearby">
         <div className="wrapper">
+          <Route exact path='/map'
+            render={props =>
+              <NoStop
+                userPosition={ userPosition}
+                centerMap={ centerMap }
+                toggleView={ toggleView }
+              />
+            }
+          />
           {
             sidebarHidden && window.innerWidth <= 700
             ? null
-            : <Stop
-              activeStop={ activeStop }
-              arrivals={ arrivals }
-              stop={ activeStop }
-              setHoverTrip={ setHoverTrip }
-              lastUpdated={ lastUpdated }
-              setClickedTrip={ setClickedTrip }
-              clickedTrip={ clickedTrip }
-              tripStops={ tripStops }
-              setActiveTripStop={ setActiveTripStop }
-              toggleView={ toggleView }
-              animate={ animate }
-              setActiveStop={ setActiveStop }
-              favorites={ favorites }
-              toggleFavorite={ toggleFavorite }
-              userPosition={ userPosition }
-              centerMap={ centerMap }
-            />
+            : <Route path='/map/stops/:id'
+                render={props =>
+                  <Stop
+                    activeStop={ activeStop }
+                    arrivals={ arrivals }
+                    stop={ activeStop }
+                    setHoverTrip={ setHoverTrip }
+                    lastUpdated={ lastUpdated }
+                    setClickedTrip={ setClickedTrip }
+                    clickedTrip={ clickedTrip }
+                    tripStops={ tripStops }
+                    setActiveTripStop={ setActiveTripStop }
+                    toggleView={ toggleView }
+                    animate={ animate }
+                    setActiveStop={ setActiveStop }
+                    favorites={ favorites }
+                    toggleFavorite={ toggleFavorite }
+                    userPosition={ userPosition }
+                    centerMap={ centerMap }
+                    routeProps={ props }
+                  />
+                }
+              />
           }
           <Map
             stops={ stops }

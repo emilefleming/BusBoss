@@ -9,7 +9,7 @@ export default function Header(props) {
         <div className="logo">
           <img src="/icons/logo.svg" alt="Logo"/>
         </div>
-        <Link to="/"><div className="navItem">Map</div></Link>
+        <Link to="/map"><div className="navItem">Map</div></Link>
         <Link to="/favorites"><div className="navItem">Favorites</div></Link>
         {
           props.userData

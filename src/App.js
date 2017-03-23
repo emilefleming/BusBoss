@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import './App.css';
 import Page from './Page/Page';
@@ -49,9 +49,12 @@ class App extends Component {
       <div className="App">
         <Router>
           <Page userData={ this.state.userData } logOut={ this.logOut }>
-            <Route exact
-              path='/'
-              render={ props => <Nearby userData={ this.state.userData }/> }
+            <Route exact path="/" render={() => (
+              <Redirect to="/map"/>
+            )}/>
+            <Route
+              path='/map'
+              render={ props => <Nearby userData={ this.state.userData } routeProps={props} /> }
             />
             <Route
               path='/favorites'

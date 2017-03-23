@@ -5,11 +5,11 @@ import Timeliness from '../Timeliness/Timeliness'
 
 export default class Arrival extends Component {
   render() {
-    const { arrival, setHoverTrip, setClickedTrip, lastUpdated } = this.props;
+    const { arrival, setHoverTrip, setClickedTrip, lastUpdated, routeProps } = this.props;
     return (
       <div
         className="Arrival"
-        onClick={ () => {setClickedTrip(arrival)} }
+        onClick={ () => { setClickedTrip(arrival)} }
         onMouseEnter={ () => {setHoverTrip(arrival)} }
       >
         <h3>{ arrival.routeShortName || arrival.routeLongName }</h3>

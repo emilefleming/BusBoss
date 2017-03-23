@@ -79,7 +79,6 @@ export default class Map extends Component {
   }
 
   render() {
-    console.log('MAP RENDERED');
     const {
       stops,
       arrivals,

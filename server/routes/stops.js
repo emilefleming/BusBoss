@@ -11,6 +11,14 @@ router.get('/', (req, res, next) => {
     .catch(err => next(err));
 });
 
+router.get('/:id', (req, res, next) => {
+  axios.get(`http://api.pugetsound.onebusaway.org/api/where/stop/${req.params.id}.json?key=${process.env.OBA_KEY}`)
+    .then(response => {
+      res.send(response.data.data.entry)
+    })
+    .catch(err => next(err))
+});
+
 router.get('/:id/arrivals', (req, res, next) => {
   fetchArrivals(req.params.id)
     .then(arrivals => {

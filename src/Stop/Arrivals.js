@@ -15,7 +15,8 @@ export default function Arrivals(props) {
     toggleView,
     setActiveStop,
     favorites,
-    toggleFavorite
+    toggleFavorite,
+    routeProps
   } = props;
 
   const isFavorite = favorites.reduce((acc, favorite) => {
@@ -28,7 +29,7 @@ export default function Arrivals(props) {
   return (
     <div className="Arrivals">
       <header>
-        <div onClick={ () => { setActiveStop(null) } }>
+        <div onClick={ () => { props.routeProps.history.push('/map') } }>
           <Icon i="arrow-left" />
         </div>
         <div className="details">
@@ -50,6 +51,7 @@ export default function Arrivals(props) {
               setHoverTrip={ setHoverTrip }
               setClickedTrip={ setClickedTrip }
               lastUpdated={ lastUpdated }
+              routeProps={ routeProps }
             />
           )
         }

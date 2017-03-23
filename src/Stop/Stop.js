@@ -1,51 +1,108 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Arrivals from './Arrivals';
 import Trip from '../Trip/Trip';
-import NoStop from './NoStop';
 import './Stop.css';
+import { Route } from 'react-router-dom';
+import io from 'socket.io-client';
+const socket = io();
+import axios from 'axios';
+import moment from 'moment';
 
-export default function Stop(props) {
-  const {
-    activeStop,
-    arrivals,
-    stop,
-    setHoverTrip,
-    setClickedTrip,
-    lastUpdated,
-    clickedTrip,
-    tripStops,
-    setActiveTripStop,
-    toggleView,
-    animate,
-    setActiveStop,
-    favorites,
-    toggleFavorite,
-    userPosition,
-    centerMap
-  } = props;
+export default class Stop extends Component {
+  constructor(props) {
+    super(props)
 
-  return (
-    <div className="Stop">
-      {
-        activeStop.id && !clickedTrip
-        ? <Arrivals
-          arrivals={ arrivals }
-          setHoverTrip={ setHoverTrip }
-          setClickedTrip={ setClickedTrip }
-          lastUpdated={ lastUpdated }
-          stop={ stop }
-          animate={ animate }
-          setActiveStop={ setActiveStop }
-          toggleView={ toggleView }
-          favorites={ favorites || [] }
-          toggleFavorite={ toggleFavorite }
+    this.state = {
+      arrivals: [],
+      stop: {}
+    }
+
+    this.fetchData = this.fetchData.bind(this);
+
+    this.fetchData();
+    this.props.routeProps.history.listen(this.fetchData);
+  }
+
+  fetchData() {
+    const stopId = this.props.routeProps.match.params.id;
+
+    socket.emit('room', {
+      room: `stop-${stopId}`
+    });
+
+    socket.on('arrivals', data => {
+      this.setState({ animate: false }, () => {
+        setTimeout(() => {
+          this.setState({
+            arrivals: data,
+            lastUpdated: moment(),
+            animate: true
+          });
+        }, 0)
+      })
+    });
+
+    axios.get(`/api/stops/${stopId}`)
+      .then(stop => {
+        axios.get(`/api/stops/${stopId}/arrivals`)
+          .then(response => {
+            this.setState({
+              stop: stop.data,
+              arrivals: response.data,
+              lastUpdated: moment(),
+              activeStop: stop,
+              animate: true
+            })
+          })
+      })
+      .catch(err => {console.log(err)})
+  }
+
+  render() {
+    const { props, state } = this;
+    const {
+      setHoverTrip,
+      setClickedTrip,
+      clickedTrip,
+      tripStops,
+      setActiveTripStop,
+      toggleView,
+      setActiveStop,
+      favorites,
+      toggleFavorite,
+      userPosition,
+      centerMap
+    } = props;
+
+    const {
+      stop,
+      arrivals,
+      lastUpdated,
+      animate
+    } = state;
+
+    return (
+      <div className="Stop">
+        <Route exact path='/map/stops/:id'
+          render={props =>
+            <Arrivals
+              arrivals={ arrivals }
+              setHoverTrip={ setHoverTrip }
+              setClickedTrip={ setClickedTrip }
+              lastUpdated={ lastUpdated }
+              stop={ stop }
+              animate={ animate }
+              setActiveStop={ setActiveStop }
+              toggleView={ toggleView }
+              favorites={ favorites || [] }
+              toggleFavorite={ toggleFavorite }
+              routeProps={ props }
+            />
+          }
         />
-        : null
-      }
-      {
-        clickedTrip
-        ? <Trip
-            trip={ clickedTrip }
+        <Route path='/map/stops/:id/trips/:tripId'
+        render={props =>
+          <Trip
             stops={ tripStops }
             setActiveTripStop={ setActiveTripStop }
             thisStop={ stop }
@@ -53,18 +110,12 @@ export default function Stop(props) {
             setClickedTrip={ setClickedTrip }
             favorites={ favorites || [] }
             toggleFavorite={ toggleFavorite }
+            routeProps={ props }
+            trip={ clickedTrip }
           />
-        : null
-      }
-      {
-        !activeStop.id
-          ? <NoStop
-            userPosition={ userPosition}
-            centerMap={ centerMap }
-            toggleView={ toggleView }
-          />
-          : null
-      }
+        }
+      />
     </div>
-  )
+    )
+  }
 }
