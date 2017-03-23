@@ -88,11 +88,14 @@ export default class Map extends Component {
       activeStop,
       setMapRef,
       userPosition,
-      toggleView
+      toggleView,
+      sidebarHidden
     } = this.props
 
     return (
-      <div className="Map">
+      <div
+        className={`Map${ !sidebarHidden && window.innerWidth <= 700 ? ' hidden' : ''}`}
+      >
         <div className="backButton" onClick={ toggleView }>
           <Icon i='arrow-left'/>
         </div>

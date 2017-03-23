@@ -2,6 +2,13 @@
   width: 100%;
   display: flex;
   flex: 1;
+  height: auto;
+}
+
+.Nearby .wrapper {
+  width: 100%;
+  flex: 1;
+  display: flex;
 }
 
 .Nearby .Stop {
@@ -22,6 +29,6 @@
 
   .Nearby .Stop {
     width: 100%;
-    height: 100%;
+    height: auto;
   }
 }

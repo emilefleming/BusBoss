@@ -305,43 +305,46 @@ export default class Nearby extends Component {
 
     return (
       <div className="Nearby">
-        {
-          sidebarHidden && window.innerWidth <= 700
-          ? null
-          : <Stop
-            activeStop={ activeStop }
+        <div className="wrapper">
+          {
+            sidebarHidden && window.innerWidth <= 700
+            ? null
+            : <Stop
+              activeStop={ activeStop }
+              arrivals={ arrivals }
+              stop={ activeStop }
+              setHoverTrip={ setHoverTrip }
+              lastUpdated={ lastUpdated }
+              setClickedTrip={ setClickedTrip }
+              clickedTrip={ clickedTrip }
+              tripStops={ tripStops }
+              setActiveTripStop={ setActiveTripStop }
+              toggleView={ toggleView }
+              animate={ animate }
+              setActiveStop={ setActiveStop }
+              favorites={ favorites }
+              toggleFavorite={ toggleFavorite }
+              userPosition={ userPosition }
+              centerMap={ centerMap }
+            />
+          }
+          <Map
+            stops={ stops }
             arrivals={ arrivals }
-            stop={ activeStop }
-            setHoverTrip={ setHoverTrip }
-            lastUpdated={ lastUpdated }
-            setClickedTrip={ setClickedTrip }
+            onMarkerClick={ onMarkerClick }
+            activeStop={ activeStop }
+            activeTrip={ clickedTrip || hoverTrip }
             clickedTrip={ clickedTrip }
+            setMapRef={ setMapRef }
+            bounds={ mapBounds }
             tripStops={ tripStops }
-            setActiveTripStop={ setActiveTripStop }
-            toggleView={ toggleView }
-            animate={ animate }
-            setActiveStop={ setActiveStop }
-            favorites={ favorites }
-            toggleFavorite={ toggleFavorite }
+            activeTripStop={ activeTripStop }
+            mapRef={ mapRef }
             userPosition={ userPosition }
-            centerMap={ centerMap }
+            toggleView={ toggleView }
+            sidebarHidden={ sidebarHidden }
           />
-        }
-        <Map
-          stops={ stops }
-          arrivals={ arrivals }
-          onMarkerClick={ onMarkerClick }
-          activeStop={ activeStop }
-          activeTrip={ clickedTrip || hoverTrip }
-          clickedTrip={ clickedTrip }
-          setMapRef={ setMapRef }
-          bounds={ mapBounds }
-          tripStops={ tripStops }
-          activeTripStop={ activeTripStop }
-          mapRef={ mapRef }
-          userPosition={ userPosition }
-          toggleView={ toggleView }
-        />
+        </div>
       </div>
     )
   }
