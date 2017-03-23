@@ -13,10 +13,8 @@ export default function Arrivals(props) {
     stop,
     animate,
     toggleView,
-    setActiveStop,
     favorites,
-    toggleFavorite,
-    routeProps
+    toggleFavorite
   } = props;
 
   const isFavorite = favorites.reduce((acc, favorite) => {
@@ -51,7 +49,6 @@ export default function Arrivals(props) {
               setHoverTrip={ setHoverTrip }
               setClickedTrip={ setClickedTrip }
               lastUpdated={ lastUpdated }
-              routeProps={ routeProps }
             />
           )
         }

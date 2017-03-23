@@ -5,7 +5,7 @@ import Timeliness from '../Timeliness/Timeliness'
 
 export default class Arrival extends Component {
   render() {
-    const { arrival, setHoverTrip, setClickedTrip, lastUpdated, routeProps } = this.props;
+    const { arrival, setHoverTrip, setClickedTrip, lastUpdated } = this.props;
     return (
       <div
         className="Arrival"

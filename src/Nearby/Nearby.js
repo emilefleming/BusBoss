@@ -7,9 +7,6 @@ import { Route } from 'react-router-dom';
 import './Nearby.css';
 import NoStop from '../Stop/NoStop';
 
-import io from 'socket.io-client';
-const socket = io()
-
 function getBounds(shape) {
   const bounds = new window.google.maps.LatLngBounds();
 
@@ -33,7 +30,7 @@ export default class Nearby extends Component {
     };
 
     this.onMarkerClick = this.onMarkerClick.bind(this);
-    this.setActiveStop = this.setActiveStop.bind(this);
+    this.linkToStop = this.linkToStop.bind(this);
     this.setHoverTrip = this.setHoverTrip.bind(this);
     this.setClickedTrip = this.setClickedTrip.bind(this);
     this.toggleView = this.toggleView.bind(this);
@@ -43,6 +40,7 @@ export default class Nearby extends Component {
     this.setMapEventListeners = this.setMapEventListeners.bind(this);
     this.toggleFavorite = this.toggleFavorite.bind(this);
     this.centerMap = this.centerMap.bind(this);
+    this.setActiveStop = this.setActiveStop.bind(this);
   };
 
   componentDidMount() {
@@ -54,7 +52,6 @@ export default class Nearby extends Component {
 
     const geoWatch = navigator.geolocation.watchPosition(this.setUserPosition, err, options);
     this.setState({ geoWatch })
-    console.log('did mount');
   };
 
   componentDidUpdate() {
@@ -69,12 +66,6 @@ export default class Nearby extends Component {
 
   componentWillUnmount() {
     navigator.geolocation.clearWatch(this.state.geoWatch)
-    if (this.state.activeStop.id) {
-      socket.off('arrivals');
-      socket.emit('leave', {
-        room: `stop-${this.state.activeStop.id}`
-      });
-    }
   }
 
   setUserPosition({ coords }) {
@@ -89,11 +80,25 @@ export default class Nearby extends Component {
   }
 
   onMarkerClick(stop) {
-    this.setActiveStop(stop)
+    this.linkToStop(stop)
   }
 
-  setActiveStop(stop) {
+  linkToStop(stop) {
+    this.setState({ activeStop: stop })
     this.props.routeProps.history.push(`/map/stops/${stop.id}`);
+  }
+
+  setActiveStop(activeStop, arrivals) {
+    this.setState({ animate: false }, () => {
+      setTimeout(() => {
+        this.setState({
+          activeStop,
+          arrivals,
+          lastUpdated: moment(),
+          animate: true
+        });
+      }, 0)
+    })
   }
 
   setHoverTrip(arrival) {
@@ -125,11 +130,32 @@ export default class Nearby extends Component {
     }
 
     mapRef.fitBounds(getBounds(arrival.shape));
-    const { routeProps } = this.props;
-    const tripUrl = `${routeProps.location.pathname}trips/${arrival.tripId}`
+    axios.get(`/api/trip/${arrival.tripId}`)
+      .then(response => {
+        const { entry, references } = response.data;
+        const stopObj = entry.schedule.stopTimes.reduce((acc, stop) => {
+          acc[stop.stopId] = {
+            departureTime: moment(stop.departureTime * 1000 + entry.serviceDate),
+            distanceAlongTrip: stop.distanceAlongTrip
+          }
+          return acc;
+        }, {})
 
-    routeProps.history.push(tripUrl);
-    this.setState({ clickedTrip: arrival })
+        const tripStops = references.stops.map(stop => {
+          stop.departure = stopObj[stop.id]
+          return stop;
+        })
+
+        this.setState({
+          tripStops,
+          savedMapView: saveMapView,
+          clickedTrip: arrival,
+          hoverTrip: null
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      })
   }
 
   setActiveTripStop(stop) {
@@ -223,14 +249,15 @@ export default class Nearby extends Component {
   render() {
     const {
       onMarkerClick,
-      setActiveStop,
+      linkToStop,
       setHoverTrip,
       setClickedTrip,
       setMapRef,
       setActiveTripStop,
       toggleView,
       toggleFavorite,
-      centerMap
+      centerMap,
+      setActiveStop
     } = this;
     const {
       stops,
@@ -278,12 +305,11 @@ export default class Nearby extends Component {
                     setActiveTripStop={ setActiveTripStop }
                     toggleView={ toggleView }
                     animate={ animate }
-                    setActiveStop={ setActiveStop }
+                    linkToStop={ linkToStop }
                     favorites={ favorites }
                     toggleFavorite={ toggleFavorite }
-                    userPosition={ userPosition }
-                    centerMap={ centerMap }
                     routeProps={ props }
+                    setActiveStop={ setActiveStop }
                   />
                 }
               />

@@ -24,7 +24,6 @@ export default class Map extends Component {
     super(props)
 
     this.generateStopIcons = this.generateStopIcons.bind(this);
-    console.log('map constructor');
   }
 
   componentDidUpdate() {
@@ -79,6 +78,7 @@ export default class Map extends Component {
   }
 
   render() {
+    console.log('map render');
     const {
       stops,
       arrivals,
