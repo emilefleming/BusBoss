@@ -103,6 +103,7 @@ export default class Stop extends Component {
                 toggleView={ toggleView }
                 favorites={ favorites || [] }
                 toggleFavorite={ toggleFavorite }
+                routerProps={ props }
               />
           }
         />
