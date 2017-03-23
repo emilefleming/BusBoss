@@ -18,6 +18,7 @@
   font-weight: 300;
   border-top: 1px solid #DDD;
   border-bottom: 1px solid #DDD;
+  margin: 0;
 }
 
 .Search .geosuggest input:focus {

@@ -12,7 +12,6 @@
 .Nearby .Stop {
   width: 25%;
   min-width: 350px;
-  height: 100%;
 }
 
 @media (max-width: 700px) {

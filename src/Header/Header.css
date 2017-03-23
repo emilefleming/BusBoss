@@ -33,18 +33,19 @@ nav.Header {
   letter-spacing: 1px;
   font-weight: 300;
   height: 100%;
-  display: flex;
-  align-items: center;
   cursor: pointer;
-}
-
-.Header .navItem:hover {
-  background-color: #EEE;
-}
+  display: flex;
+  align-items: center;}
 
 .Header a {
+  display: flex;
+  align-items: center;
   color: inherit;
   text-decoration: none;
+}
+
+.Header a:hover, .Header .navItem:hover {
+  background-color: #EEE;
 }
 
 @media (max-width: 700px) {
