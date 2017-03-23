@@ -327,23 +327,21 @@ export default class Nearby extends Component {
             centerMap={ centerMap }
           />
         }
-        <div className="map">
-          <Map
-            stops={ stops }
-            arrivals={ arrivals }
-            onMarkerClick={ onMarkerClick }
-            activeStop={ activeStop }
-            activeTrip={ clickedTrip || hoverTrip }
-            clickedTrip={ clickedTrip }
-            setMapRef={ setMapRef }
-            bounds={ mapBounds }
-            tripStops={ tripStops }
-            activeTripStop={ activeTripStop }
-            mapRef={ mapRef }
-            userPosition={ userPosition }
-            toggleView={ toggleView }
-          />
-        </div>
+        <Map
+          stops={ stops }
+          arrivals={ arrivals }
+          onMarkerClick={ onMarkerClick }
+          activeStop={ activeStop }
+          activeTrip={ clickedTrip || hoverTrip }
+          clickedTrip={ clickedTrip }
+          setMapRef={ setMapRef }
+          bounds={ mapBounds }
+          tripStops={ tripStops }
+          activeTripStop={ activeTripStop }
+          mapRef={ mapRef }
+          userPosition={ userPosition }
+          toggleView={ toggleView }
+        />
       </div>
     )
   }
