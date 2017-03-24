@@ -3,21 +3,7 @@ import { GoogleMapLoader, GoogleMap, Marker, Polyline } from 'react-google-maps'
 import './Map.css';
 import mapStyles from './mapStyles.json';
 import Icon from '../Icon/Icon'
-
-function icon(name) {
-  let url = `/icons/stops/${ name }.png`
-
-  if (!name) {
-    url = '/icons/stops/generic.png'
-  }
-
-  return {
-    url,
-    size: new window.google.maps.Size(50, 50),
-    origin: new window.google.maps.Point(0, 0),
-    anchor: new window.google.maps.Point(25, 25)
-  };
-}
+import markerIcon from './markerIcon';
 
 export default class Map extends Component {
   constructor(props) {
@@ -88,7 +74,8 @@ export default class Map extends Component {
       setMapRef,
       userPosition,
       toggleView,
-      sidebarHidden
+      sidebarHidden,
+      markers
     } = this.props
 
     return (
@@ -121,23 +108,13 @@ export default class Map extends Component {
             >
               {
                 !activeTrip
-                ? stops.map(stop => {
-                  return (
-                    <Marker
-                      icon={ icon(stop.direction) }
-                      position={ {lat: stop.lat, lng: stop.lon} }
-                      onClick={ () => onMarkerClick(stop) }
-                      key={ stop.id }
-                      options={{ zIndex: 1 }}
-                    />
-                  );
-                })
+                ? markers
                 : null
               }
               {
                 (activeStop.lat && !activeTrip)
                   ? <Marker
-                  icon={ icon('selected') }
+                  icon={ markerIcon('selected') }
                   position={ {lat: activeStop.lat, lng: activeStop.lon} }
                   onClick={ () => onMarkerClick(activeStop) }
                   options={{ zIndex: 2, scale: 1 }}
@@ -147,7 +124,7 @@ export default class Map extends Component {
               {
                 userPosition
                   ? <Marker
-                  icon={ icon('user') }
+                  icon={ markerIcon('user') }
                   position={ {lat: userPosition.lat, lng: userPosition.lng} }
                   options={{ zIndex: 3, scale: 4 }}
                 />

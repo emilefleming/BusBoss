@@ -6,6 +6,9 @@ import Stop from '../Stop/Stop';
 import { Route } from 'react-router-dom';
 import './Nearby.css';
 import NoStop from '../Stop/NoStop';
+import Icon from '../Icon/Icon'
+import {  Marker } from 'react-google-maps';
+import markerIcon from '../Map/markerIcon';
 
 function getBounds(shape) {
   const bounds = new window.google.maps.LatLngBounds();
@@ -199,7 +202,18 @@ export default class Nearby extends Component {
 
       axios.get(`/api/stops?lat=${lat()}&lng=${lng()}&latSpan=${f.b - f.f}&lonSpan=${b.f - b.b}`)
         .then(response => {
-          this.setState({ stops: response.data });
+          const markers = response.data.map(stop => {
+              return (
+                <Marker
+                  icon={ markerIcon(stop.direction) }
+                  position={ {lat: stop.lat, lng: stop.lon} }
+                  onClick={ () => this.onMarkerClick(stop) }
+                  key={ stop.id }
+                  options={{ zIndex: 1 }}
+                />
+              );
+            })
+          this.setState({ markers, stops: response.data });
 
         })
         .catch(err => { console.log(err); })
@@ -280,6 +294,7 @@ export default class Nearby extends Component {
       userPosition,
       animate,
       favorites,
+      markers
     } = this.state;
 
     return (
@@ -337,6 +352,7 @@ export default class Nearby extends Component {
             userPosition={ userPosition }
             toggleView={ toggleView }
             sidebarHidden={ sidebarHidden }
+            markers={ markers }
           />
         </div>
       </div>
