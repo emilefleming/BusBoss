@@ -6,7 +6,6 @@ import Stop from '../Stop/Stop';
 import { Route } from 'react-router-dom';
 import './Nearby.css';
 import NoStop from '../Stop/NoStop';
-import Icon from '../Icon/Icon'
 import {  Marker } from 'react-google-maps';
 import markerIcon from '../Map/markerIcon';
 
@@ -334,7 +333,6 @@ export default class Nearby extends Component {
               />
           }
           <Map
-            stops={ stops }
             arrivals={ arrivals }
             onMarkerClick={ onMarkerClick }
             activeStop={ activeStop }

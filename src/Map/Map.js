@@ -66,7 +66,6 @@ export default class Map extends Component {
   render() {
     console.log('map render');
     const {
-      stops,
       arrivals,
       onMarkerClick,
       activeTrip,

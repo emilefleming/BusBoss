@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './Arrival.css';
 import moment from 'moment';
 import Timeliness from '../Timeliness/Timeliness'
@@ -7,7 +7,6 @@ import Icon from '../Icon/Icon'
 export default function Arrival(props) {
   const { arrival, setHoverTrip, setClickedTrip, lastUpdated } = props;
   let title = arrival.routeShortName || arrival.routeLongName;
-console.log(arrival);
   if (title === 'LINK') {
     title = <div className="link">LINK</div>
   }
