@@ -4,6 +4,7 @@ import Icon from '../Icon/Icon';
 
 import TripStop from './TripStop';
 import Timeliness from '../Timeliness/Timeliness';
+import RouteIcon from '../RouteIcon/RouteIcon'
 import FavoriteButton from '../Favorites/FavoriteButton';
 
 export default function Trip(props) {
@@ -34,9 +35,7 @@ export default function Trip(props) {
           <Icon i="arrow-left" />
         </div>
         <div className="details">
-          <h2>
-            { routeShortName || routeLongName }
-          </h2>
+          <RouteIcon arrival={ trip } />
           <h3>{ tripHeadsign }</h3>
           <h4><Timeliness arrival={ trip }/></h4>
         </div>

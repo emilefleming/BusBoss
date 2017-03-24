@@ -5,9 +5,10 @@
   height: 100%;
 }
 
-.Trip h2, .Trip h3 {
+.Trip h3 {
   font-weight: 300;
   text-align: center;
+  margin-bottom: 2px;
 }
 
 .Trip header {
@@ -15,6 +16,39 @@
   align-items: center;
   border-bottom: 1px solid #EEE;
   padding-right: 60px;
+}
+
+.Trip .RouteIcon {
+  margin: 10px auto;
+  width: auto;
+  font-size: 24px;
+}
+
+.Trip .RouteIcon .brt, .Trip .RouteIcon .link {
+  width: 50px;
+  height: 50px;
+  font-size: 24px;
+}
+
+.Trip .RouteIcon .link {
+  font-size: 16px;
+}
+
+.Trip .RouteIcon .streetcar {
+  display: flex;
+  justify-content: center;
+}
+
+.Trip .RouteIcon .streetcar div {
+  font-size: 14px;
+  color: black;
+}
+
+.Trip .RouteIcon .ferry .mdi, .Trip .RouteIcon .streetcar .mdi {
+  width: auto;
+  color: #AAA;
+  font-size: 34px;
+  margin: 0;
 }
 
 .Trip header .mdi {
@@ -27,10 +61,6 @@
 
 .Trip header .mdi-map {
   display: none;
-}
-
-.Trip h2 {
-  font-size: 24px;
 }
 
 .Trip h3 {
