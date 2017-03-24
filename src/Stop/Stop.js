@@ -16,9 +16,14 @@ export default class Stop extends Component {
 
     this.props.routeProps.history.listen(this.changeStop);
 
-    socket.on('arrivals', data => {
-      this.props.setActiveStop(this.props.activeStop, data);
-    });
+    this.handleSocketArrival = this.handleSocketArrival.bind(this);
+
+    socket.on('arrivals', this.handleSocketArrival);
+  }
+
+
+  handleSocketArrival(data) {
+    this.props.setActiveStop(this.props.activeStop, data);
   }
 
   componentDidMount() {
@@ -33,17 +38,20 @@ export default class Stop extends Component {
     socket.emit('leave', {
       room: `stop-${this.state.oldId}`
     });
-    socket.off('arrivals');
+    socket.off('arrivals', this.handleSocketArrival);
   }
 
   changeStop() {
     const stopId = this.props.routeProps.match.params.id;
+    console.log(stopId);
     const { oldId } = this.state;
-    socket.emit('room', {
-      room: `stop-${stopId}`,
-      oldRoom: `stop-${oldId}`
-    });
-    this.fetchData();
+    if (stopId !== oldId) {
+      socket.emit('room', {
+        room: `stop-${stopId}`,
+        oldRoom: `stop-${oldId}`
+      });
+      this.fetchData();
+    }
   }
 
   fetchData() {
