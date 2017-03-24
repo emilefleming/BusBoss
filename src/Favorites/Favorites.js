@@ -101,6 +101,7 @@ export default class Favorites extends Component {
               key={favorite.id}
               favorite={ favorite }
               removeFavorite={ this.removeFavorite }
+              history={ this.props.history }
             />
           )
         }

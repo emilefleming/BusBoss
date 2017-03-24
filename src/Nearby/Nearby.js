@@ -273,7 +273,6 @@ export default class Nearby extends Component {
       clearActiveStop
     } = this;
     const {
-      stops,
       arrivals,
       activeStop,
       hoverTrip,

@@ -58,7 +58,9 @@ class App extends Component {
             />
             <Route
               path='/favorites'
-              render={ props => <Favorites userData={ this.state.userData } /> }
+              render={props =>
+                <Favorites userData={ this.state.userData } { ...props }/>
+              }
             />
             <Route
               path='/login'

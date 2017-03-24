@@ -5,10 +5,13 @@ import Icon from '../Icon/Icon';
 import moment from 'moment';
 
 export default function Favorite(props) {
-  const { favorite, removeFavorite } = props;
+  const { favorite, removeFavorite, history } = props;
+
   return (
     <div className="Favorite">
-      <header>
+      <header
+        onClick={ () => { history.push(`/map/stops/${favorite.data.entry.id}`) } }
+      >
         {
           favorite.favoriteRouteName
           ? <h2>{ favorite.favoriteRouteName }</h2>

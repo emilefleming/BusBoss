@@ -25,7 +25,7 @@ export default function Arrivals(props) {
     }
     return acc;
   }, false)
-  console.log(stop);
+
   return (
     <div className="Arrivals">
       <header>
