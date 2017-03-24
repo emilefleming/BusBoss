@@ -105,6 +105,11 @@ export default class Favorites extends Component {
             />
           )
         }
+        {
+          !this.state.favorites.length
+            ? <div className="noFavorites"><h2>You don't have any favorites yet!</h2><div>You can add both stops and routes.</div></div>
+            : null
+        }
       </div>
     )
   };
