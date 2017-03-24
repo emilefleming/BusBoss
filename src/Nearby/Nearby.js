@@ -98,7 +98,7 @@ export default class Nearby extends Component {
       setTimeout(() => {
         this.setState({
           activeStop,
-          oldId: this.state.activeStop.id,
+          oldId: this.state.activeStop.id || activeStop.id,
           arrivals,
           lastUpdated: moment(),
           animate: true
