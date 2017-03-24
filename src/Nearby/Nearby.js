@@ -348,6 +348,7 @@ export default class Nearby extends Component {
             toggleView={ toggleView }
             sidebarHidden={ sidebarHidden }
             markers={ markers }
+            centerMap={ centerMap }
           />
         </div>
       </div>

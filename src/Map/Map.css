@@ -13,17 +13,27 @@
   display: none;
 }
 
-.Map .backButton {
+.Map .backButton, .Map .centerMapButton {
   position: absolute;
   top: 0;
-  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
   width: 50px;
   height: 50px;
   z-index: 2;
+  cursor: pointer;
+}
+
+.Map .backButton {
+  left: 0;
   display: none;
-  justify-content: center;
-  align-items: center;
-  font-size: 24px;
+}
+
+.Map .centerMapButton {
+  right: 0;
+  color: #6FBE45;
 }
 
 .Map div:last-child {

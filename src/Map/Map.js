@@ -74,7 +74,8 @@ export default class Map extends Component {
       userPosition,
       toggleView,
       sidebarHidden,
-      markers
+      markers,
+      centerMap
     } = this.props
 
     return (
@@ -84,6 +85,16 @@ export default class Map extends Component {
         <div className="backButton" onClick={ toggleView }>
           <Icon i='arrow-left'/>
         </div>
+        {
+          userPosition
+          ? <div
+              className="centerMapButton"
+              onClick={ () => {centerMap(userPosition)} }
+            >
+              <Icon i='map-marker-circle'/>
+            </div>
+          : null
+        }
         <GoogleMapLoader
           containerElement={
             <div
