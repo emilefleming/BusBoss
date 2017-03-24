@@ -64,13 +64,23 @@
   margin-left: 1px;
 }
 
-.Arrival .ferry {
+.Arrival .ferry, .Arrival .streetcar {
   color: #AAA;
   font-size: 24px;
 }
 
 .Arrival .link {
   background-color: #007DC5;
+}
+
+.Arrival .streetcar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Arrival .streetcar div {
+  font-size: 10px;
 }
 
 .Arrival .brt {
