@@ -84,6 +84,7 @@ export default class Nearby extends Component {
   }
 
   onMarkerClick(stop) {
+    this.setState({ activeStop: {}, arrivals: [] })
     this.linkToStop(stop)
   }
 
