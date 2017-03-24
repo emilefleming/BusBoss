@@ -47,7 +47,7 @@ export default class Stop extends Component {
 
     this.props.setClickedTrip(null);
 
-    if (stopId !== oldId) {
+    if (stopId && stopId !== oldId) {
       socket.emit('room', {
         room: `stop-${stopId}`,
         oldRoom: `stop-${oldId}`
