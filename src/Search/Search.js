@@ -18,6 +18,7 @@ export default class Search extends Component {
     this.geosuggest.blur()
     this.geosuggest.focus()
     this.geosuggest.blur()
+    this.props.toggleView()
   }
 
   pickLocation(userPosition) {
