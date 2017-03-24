@@ -14,7 +14,7 @@ export default class Stop extends Component {
     this.fetchData = this.fetchData.bind(this);
     this.changeStop = this.changeStop.bind(this);
 
-    this.props.routeProps.history.listen(this.changeStop);
+    this.listener = this.props.routeProps.history.listen(this.changeStop);
 
     this.handleSocketArrival = this.handleSocketArrival.bind(this);
 
@@ -39,9 +39,12 @@ export default class Stop extends Component {
       room: `stop-${this.state.oldId}`
     });
     socket.off('arrivals', this.handleSocketArrival);
+    this.props.clearActiveStop();
+    this.listener();
   }
 
   changeStop(location) {
+    console.log('change stop');
     const stopId = location.pathname.slice(11)
     const { oldId } = this.state;
 
@@ -62,7 +65,6 @@ export default class Stop extends Component {
     this.setState({ oldId: stopId })
     axios.get(`/api/stops/${stopId}`)
       .then(stop => {
-        console.log(stop);
         this.props.centerMap({
           lat: stop.data.entry.lat,
           lng: stop.data.entry.lon

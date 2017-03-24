@@ -41,6 +41,7 @@ export default class Nearby extends Component {
     this.toggleFavorite = this.toggleFavorite.bind(this);
     this.centerMap = this.centerMap.bind(this);
     this.setActiveStop = this.setActiveStop.bind(this);
+    this.clearActiveStop = this.clearActiveStop.bind(this);
   };
 
   componentDidMount() {
@@ -99,6 +100,10 @@ export default class Nearby extends Component {
         });
       }, 0)
     })
+  }
+
+  clearActiveStop() {
+    this.setState({ activeStop: {}, arrivals: []})
   }
 
   setHoverTrip(arrival) {
@@ -257,7 +262,8 @@ export default class Nearby extends Component {
       toggleView,
       toggleFavorite,
       centerMap,
-      setActiveStop
+      setActiveStop,
+      clearActiveStop
     } = this;
     const {
       stops,
@@ -311,6 +317,7 @@ export default class Nearby extends Component {
                     routeProps={ props }
                     setActiveStop={ setActiveStop }
                     centerMap={ centerMap }
+                    clearActiveStop={ clearActiveStop }
                   />
                 }
               />
