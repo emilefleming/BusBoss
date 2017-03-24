@@ -24,14 +24,6 @@
   display: none;
 }
 
-.Arrivals header h2 {
-  padding: 30px 0;
-  font-weight: 300;
-  text-transform: uppercase;
-  text-align: center;
-  font-size: 18px;
-}
-
 .Arrivals header .details {
   flex: 1;
   padding: 10px 0;

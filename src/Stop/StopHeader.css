@@ -5,10 +5,15 @@
   flex-direction: column;
   padding: 10px 0;
   font-weight: 300;
+  text-transform: uppercase;
 }
 
 .StopHeader div {
   letter-spacing: 1px;
+}
+
+.StopHeader:hover div {
+  color: #AAA;
 }
 
 .StopHeader span {
