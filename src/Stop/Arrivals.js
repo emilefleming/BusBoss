@@ -15,7 +15,8 @@ export default function Arrivals(props) {
     toggleView,
     favorites,
     toggleFavorite,
-    routerProps
+    routerProps,
+    centerMap
   } = props;
 
   const isFavorite = favorites.reduce((acc, favorite) => {
@@ -24,14 +25,14 @@ export default function Arrivals(props) {
     }
     return acc;
   }, false)
-
+  console.log(stop);
   return (
     <div className="Arrivals">
       <header>
         <div onClick={ () => { routerProps.history.push('/map') } }>
           <Icon i="arrow-left" />
         </div>
-        <div className="details">
+        <div className="details" onClick={() => {centerMap({ lat: stop.lat, lng: stop.lon})}}>
           <h2>{ stop.name }</h2>
         </div>
         <div onClick={ toggleView }>

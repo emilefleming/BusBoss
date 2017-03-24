@@ -123,6 +123,7 @@ export default class Stop extends Component {
                 favorites={ favorites || [] }
                 toggleFavorite={ toggleFavorite }
                 routerProps={ props }
+                centerMap={ centerMap }
               />
           }
         />
