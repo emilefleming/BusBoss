@@ -29,12 +29,8 @@
   border-bottom: 1px solid #EEE;
 }
 
-.Favorite header h3 {
-  font-size: 16px;
-  font-weight: 300;
-  text-align: center;
-  padding: 7px 10px;
-  color: #666;
+.Favorite header .StopHeader {
+  margin: 10px 0;
 }
 
 .Favorite header h3:first-child {

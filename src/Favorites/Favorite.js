@@ -1,6 +1,7 @@
 import React from 'react';
 import './Favorite.css';
 import Arrival from '../Arrival/Arrival';
+import StopHeader from '../Stop/StopHeader';
 import Icon from '../Icon/Icon';
 import moment from 'moment';
 
@@ -17,7 +18,7 @@ export default function Favorite(props) {
           ? <h2>{ favorite.favoriteRouteName }</h2>
           : null
         }
-        <h3>{ favorite.data.entry.name }</h3>
+        <StopHeader name={ favorite.data.entry.name }/>
       </header>
       <div className="arrivals">
         {
