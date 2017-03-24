@@ -1,0 +1,18 @@
+.StopHeader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px 0;
+  font-weight: 300;
+}
+
+.StopHeader div {
+  letter-spacing: 1px;
+}
+
+.StopHeader span {
+  font-size: 12px;
+  margin: 5px 0;
+  color: #AAA;
+}

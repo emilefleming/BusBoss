@@ -3,6 +3,7 @@ import Arrival from '../Arrival/Arrival';
 import './Arrivals.css';
 import Icon from '../Icon/Icon'
 import FavoriteButton from '../Favorites/FavoriteButton';
+import StopHeader from './StopHeader';
 
 export default function Arrivals(props) {
   const {
@@ -30,10 +31,10 @@ export default function Arrivals(props) {
     <div className="Arrivals">
       <header>
         <div onClick={ () => { routerProps.history.push('/map') } }>
-          <Icon i="arrow-left" />
+          <Icon i="close" />
         </div>
         <div className="details" onClick={() => {centerMap({ lat: stop.lat, lng: stop.lon})}}>
-          <h2>{ stop.name }</h2>
+          <StopHeader name={ stop.name } />
         </div>
         <div onClick={ toggleView }>
           <Icon i="map"/>
