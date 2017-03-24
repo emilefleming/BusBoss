@@ -16,7 +16,8 @@ export default function Trip(props) {
     setClickedTrip,
     favorites,
     toggleFavorite,
-    routeProps
+    routeProps,
+    centerMap
   } = props;
   const { routeShortName, routeLongName, tripStatus, tripHeadsign } = trip;
   const isFavorite = favorites.reduce((acc, favorite) => {
@@ -58,6 +59,7 @@ export default function Trip(props) {
                   setActiveTripStop={ setActiveTripStop }
                   yourStop={ thisStop.id === stop.id }
                   routeProps={ routeProps }
+                  centerMap={ centerMap }
                 >
                   {
                     tripStatus.distanceAlongTrip > stop.departure.distanceAlongTrip

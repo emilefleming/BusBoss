@@ -98,6 +98,7 @@ export default class Nearby extends Component {
       setTimeout(() => {
         this.setState({
           activeStop,
+          oldId: this.state.activeStop.id,
           arrivals,
           lastUpdated: moment(),
           animate: true
@@ -287,7 +288,8 @@ export default class Nearby extends Component {
       userPosition,
       animate,
       favorites,
-      markers
+      markers,
+      oldId
     } = this.state;
 
     return (
@@ -326,6 +328,7 @@ export default class Nearby extends Component {
                     setActiveStop={ setActiveStop }
                     centerMap={ centerMap }
                     clearActiveStop={ clearActiveStop }
+                    oldId={ oldId }
                   />
                 }
               />

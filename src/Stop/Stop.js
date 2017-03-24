@@ -35,8 +35,9 @@ export default class Stop extends Component {
   }
 
   componentWillUnmount() {
+    console.log(this.props.oldId);
     socket.emit('leave', {
-      room: `stop-${this.state.oldId}`
+      room: `stop-${this.props.oldId}`
     });
     socket.off('arrivals', this.handleSocketArrival);
     this.props.clearActiveStop();
@@ -46,7 +47,7 @@ export default class Stop extends Component {
   changeStop(location) {
     console.log('change stop');
     const stopId = location.pathname.slice(11)
-    const { oldId } = this.state;
+    const { oldId } = this.props;
 
     this.props.setClickedTrip(null);
 
@@ -62,13 +63,8 @@ export default class Stop extends Component {
 
   fetchData(id) {
     const stopId = id || this.props.routeProps.match.params.id;
-    this.setState({ oldId: stopId })
     axios.get(`/api/stops/${stopId}`)
       .then(stop => {
-        this.props.centerMap({
-          lat: stop.data.entry.lat,
-          lng: stop.data.entry.lon
-        });
         axios.get(`/api/stops/${stopId}/arrivals`)
           .then(response => {
             this.props.setActiveStop(stop.data.entry, response.data);
@@ -92,7 +88,8 @@ export default class Stop extends Component {
       stop,
       arrivals,
       lastUpdated,
-      animate
+      animate,
+      centerMap
     } = this.props;
 
     return (
@@ -110,6 +107,7 @@ export default class Stop extends Component {
                 toggleFavorite={ toggleFavorite }
                 routeProps={ props }
                 trip={ clickedTrip }
+                centerMap={ centerMap }
               />
             : <Arrivals
                 arrivals={ arrivals }
