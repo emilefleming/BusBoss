@@ -110,15 +110,7 @@ export default class Nearby extends Component {
   }
 
   setHoverTrip(arrival) {
-    let hoverTrip = null;
-
-    if (this.state.clickedTrip) {
-      return;
-    }
-    if (arrival) {
-      hoverTrip = arrival
-    }
-    this.setState({ hoverTrip })
+    this.setState({ hoverTrip: arrival })
   }
 
   setClickedTrip(arrival) {
