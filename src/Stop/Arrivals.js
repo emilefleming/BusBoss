@@ -53,6 +53,13 @@ export default function Arrivals(props) {
             />
           )
         }
+        {
+          !arrivals.length
+            ? <div className="noArrivals">
+                No departures in the next 30 minutes
+              </div>
+            : null
+        }
       </div>
       <FavoriteButton
         isFavorite={ isFavorite }
