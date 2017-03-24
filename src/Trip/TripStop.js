@@ -2,13 +2,14 @@ import React from 'react';
 import './TripStop.css';
 
 export default function TripStop(props) {
-  const { stop, children, setActiveTripStop, yourStop } = props
+  const { stop, children, setActiveTripStop, yourStop, routeProps } = props
 
   return (
     stop.departure
     ? <div
         className="TripStop"
         onMouseEnter={ () => { setActiveTripStop(stop)}}
+        onClick={ () => {routeProps.history.push(`/map/stops/${stop.id}`)} }
       >
         <div className="icon">{ children }</div>
         <div className="stopDetails">

@@ -310,6 +310,7 @@ export default class Nearby extends Component {
                     toggleFavorite={ toggleFavorite }
                     routeProps={ props }
                     setActiveStop={ setActiveStop }
+                    centerMap={ centerMap }
                   />
                 }
               />
