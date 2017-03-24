@@ -21,13 +21,8 @@
     flex-direction: column;
   }
 
-  .Nearby .map {
+  .Nearby .map, .Nearby .Stop, .Nearby .NoStop {
     width: 100%;
     height: 100%;
-  }
-
-  .Nearby .Stop {
-    width: 100%;
-    height: auto;
   }
 }

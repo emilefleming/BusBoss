@@ -83,7 +83,7 @@ export default class Nearby extends Component {
   }
 
   onMarkerClick(stop) {
-    this.setState({ activeStop: {}, arrivals: [] })
+    this.setState({ activeStop: {}, arrivals: [], sidebarHidden: false })
     this.linkToStop(stop)
   }
 
@@ -295,11 +295,13 @@ export default class Nearby extends Component {
         <div className="wrapper">
           <Route exact path='/map'
             render={props =>
-              <NoStop
-                userPosition={ userPosition}
-                centerMap={ centerMap }
-                toggleView={ toggleView }
-              />
+              sidebarHidden
+                ? null
+                : <NoStop
+                    userPosition={ userPosition}
+                    centerMap={ centerMap }
+                    toggleView={ toggleView }
+                  />
             }
           />
           {
