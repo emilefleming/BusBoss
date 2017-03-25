@@ -20,7 +20,7 @@ export default function Trip(props) {
     routeProps,
     centerMap
   } = props;
-  const { routeShortName, routeLongName, tripStatus, tripHeadsign } = trip;
+  const { tripStatus, tripHeadsign } = trip;
   const isFavorite = favorites.reduce((acc, favorite) => {
     if (favorite.stopId === thisStop.id && favorite.routeId === trip.routeId) {
       return acc = favorite;
