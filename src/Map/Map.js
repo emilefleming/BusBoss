@@ -4,6 +4,7 @@ import './Map.css';
 import mapStyles from './mapStyles.json';
 import Icon from '../Icon/Icon'
 import markerIcon from './markerIcon';
+import userMarkerIcon from './userMarkerIcon';
 
 export default class Map extends Component {
   constructor(props) {
@@ -134,7 +135,7 @@ export default class Map extends Component {
               {
                 userPosition
                   ? <Marker
-                  icon={ markerIcon('user') }
+                  icon={ userMarkerIcon() }
                   position={ {lat: userPosition.lat, lng: userPosition.lng} }
                   options={{ zIndex: 3, scale: 4 }}
                 />
