@@ -34,6 +34,8 @@
 .Arrivals .arrivalList {
   flex: 1;
   overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+  -webkit-backface-visibility: hidden;
   border-bottom: 1px solid #DDD;
 }
 

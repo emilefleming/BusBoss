@@ -83,6 +83,8 @@
 .Trip .schedule {
   position: relative;
   overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+  -webkit-backface-visibility: hidden;
   flex: 1;
   border-top: 1px solid #DDD;
   border-bottom: 1px solid #DDD;

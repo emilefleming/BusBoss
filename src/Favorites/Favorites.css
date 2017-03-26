@@ -5,7 +5,9 @@
   flex-wrap: wrap;
   align-items:flex-start;
   align-content:flex-start;
-  overflow: scroll;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  -webkit-backface-visibility: hidden;
 }
 
 .Favorites .favoriteCards {
