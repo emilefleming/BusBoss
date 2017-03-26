@@ -49,7 +49,7 @@ export default class Search extends Component {
 
   render() {
     const { props, state, selectPlace, pickLocation, handleFocus, handleChange } = this;
-    const { userPosition, toggleView } = props;
+    const { userPosition, toggleView, routeProps } = props;
     const { searching, query } = state;
     return (
       <div className="Search">
@@ -75,7 +75,7 @@ export default class Search extends Component {
         />
         {
           searching
-          ? <RouteResults query={ query }/>
+          ? <RouteResults query={ query } routeProps={ routeProps }/>
           : null
         }
       </div>

@@ -5,7 +5,7 @@ import Legend from '../Legend/Legend';
 import './NoStop.css'
 
 export default function NoStop(props) {
-  const { userPosition, toggleView, centerMap } = props;
+  const { userPosition, toggleView, centerMap, routeProps } = props;
 
   return (
     <div className="NoStop">
@@ -13,6 +13,7 @@ export default function NoStop(props) {
         userPosition={ userPosition}
         centerMap={ centerMap }
         toggleView={ toggleView }
+        routeProps={ routeProps }
       />
       <Legend />
     </div>

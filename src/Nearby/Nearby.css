@@ -11,7 +11,7 @@
   display: flex;
 }
 
-.Nearby .Stop {
+.Nearby .Stop, .Nearby .RouteComponent {
   width: 350px;
 }
 
@@ -21,7 +21,7 @@
     flex-direction: column;
   }
 
-  .Nearby .map, .Nearby .Stop, .Nearby .NoStop {
+  .Nearby .map, .Nearby .Stop, .Nearby .NoStop, .Nearby .RouteComponent {
     width: 100%;
   }
 }

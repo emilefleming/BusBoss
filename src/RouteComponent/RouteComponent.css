@@ -1,0 +1,113 @@
+.RouteComponent {
+  box-shadow: 0 1px 3px #666;
+  background-color: #EEE;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+.RouteComponent header {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #DDD;
+  padding-right: 60px;
+}
+
+.RouteComponent .RouteIcon {
+  margin: 10px auto;
+  width: auto;
+  font-size: 24px;
+}
+
+.RouteComponent .RouteIcon .brt, .RouteComponent .RouteIcon .link {
+  width: 50px;
+  height: 50px;
+  font-size: 24px;
+}
+
+.RouteComponent .RouteIcon .link {
+  font-size: 16px;
+}
+
+.RouteComponent .RouteIcon .streetcar {
+  display: flex;
+  justify-content: center;
+}
+
+.RouteComponent .RouteIcon .streetcar div {
+  font-size: 14px;
+  color: black;
+}
+
+.RouteComponent .RouteIcon .ferry .mdi, .RouteComponent .RouteIcon .streetcar .mdi {
+  width: auto;
+  color: #AAA;
+  font-size: 34px;
+  margin: 0;
+}
+
+.RouteComponent header .mdi {
+  width: 20px;
+  margin: 20px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #444;
+}
+
+.RouteComponent header .mdi-map {
+  display: none;
+}
+
+.RouteComponent h3 {
+  font-size: 14px;
+  letter-spacing: 1px;
+  padding: 3px;
+}
+
+.RouteComponent .details h4 {
+  font-weight: 400;
+  text-align: center;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.RouteComponent .details {
+  flex: 1;
+  padding: 10px 0;
+}
+
+.RouteComponent .stops {
+  flex: 1;
+  overflow: scroll;
+}
+
+.RouteComponent .stops .stop {
+  font-weight: 300;
+  font-size: 14px;
+  padding: 15px;
+  background-color: white;
+  border-bottom: 1px solid #EEE;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.RouteComponent .stops .stop:hover {
+  background-color: #EEE;
+}
+
+.RouteComponent .stops .stop img {
+  margin-right: 15px;
+  width: 15px;
+}
+
+@media (max-width: 700px) {
+  .RouteComponent header {
+    padding-right: 0;
+  }
+
+  .RouteComponent header .mdi-map {
+    display: block;
+  }
+}

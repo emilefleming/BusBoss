@@ -21,7 +21,7 @@ export default class RouteResults extends Component {
   }
 
   render() {
-    const { query } = this.props;
+    const { query, routeProps } = this.props;
     return(
       <div className="RouteResults">
         {
@@ -37,13 +37,13 @@ export default class RouteResults extends Component {
               const { shortName, description } = route;
               const exp = new RegExp(query, 'i');
               const show = query && (shortName.match(exp) || description.match(exp));
-              if (show) {
-                console.log(route);
-              }
 
               return show
-              ? <RouteResult key={ route.id } route={ route } />
-
+              ? <RouteResult
+                  key={ route.id }
+                  route={ route }
+                  routeProps={ routeProps }
+                />
               : null
             })
           }

@@ -3,6 +3,7 @@ import axios from 'axios';
 import moment from 'moment';
 import Map from '../Map/Map';
 import Stop from '../Stop/Stop';
+import RouteComponent from '../RouteComponent/RouteComponent';
 import { Route } from 'react-router-dom';
 import './Nearby.css';
 import NoStop from '../Stop/NoStop';
@@ -301,6 +302,7 @@ export default class Nearby extends Component {
                     userPosition={ userPosition}
                     centerMap={ centerMap }
                     toggleView={ toggleView }
+                    routeProps={ props }
                   />
             }
           />
@@ -329,6 +331,18 @@ export default class Nearby extends Component {
                     centerMap={ centerMap }
                     clearActiveStop={ clearActiveStop }
                     oldId={ oldId }
+                  />
+                }
+              />
+          }
+          {
+            sidebarHidden && window.innerWidth <= 700
+            ? null
+            : <Route path='/map/routes/:id'
+                render={props =>
+                  <RouteComponent
+                    routeProps={ props }
+                    toggleView={ toggleView }
                   />
                 }
               />
