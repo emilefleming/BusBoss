@@ -1,11 +1,8 @@
 .Favorite {
   background-color: white;
-  margin: 10px;
-  width: 300px;
-  max-height: 90%;
-  display: flex;
-  flex-direction: column;
   border: 1px solid #DDD;
+  margin-bottom: 10px;
+  break-inside: avoid;
 }
 
 .Favorite .Arrival {
@@ -37,11 +34,6 @@
   font-size: 20px;
   color: inherit;
   padding: 30px;
-}
-
-.Favorite .arrivals {
-  flex: 1;
-  overflow: scroll;
 }
 
 .Favorite .close {

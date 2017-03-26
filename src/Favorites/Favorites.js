@@ -95,16 +95,18 @@ export default class Favorites extends Component {
         <div className="loader">
           <div className={`loadBar ${this.state.animate ? 'loadAnimation' : ''}`}></div>
         </div>
-        {
-          this.state.favorites.map(favorite =>
-            <Favorite
-              key={favorite.id}
-              favorite={ favorite }
-              removeFavorite={ this.removeFavorite }
-              history={ this.props.history }
-            />
-          )
-        }
+        <div className="favoriteCards">
+          {
+            this.state.favorites.map(favorite =>
+              <Favorite
+                key={favorite.id}
+                favorite={ favorite }
+                removeFavorite={ this.removeFavorite }
+                history={ this.props.history }
+              />
+            )
+          }
+        </div>
         {
           !this.state.favorites.length
             ? <div className="noFavorites"><h2>You don't have any favorites yet!</h2><div>You can add both stops and routes.</div></div>
