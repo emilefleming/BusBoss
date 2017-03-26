@@ -21,6 +21,7 @@ app.use('/api/trip', require('./routes/trips'));
 app.use('/api/users', require('./routes/users'));
 app.use('/api/token', require('./routes/token'));
 app.use('/api/favorites', require('./routes/favorites'));
+app.use('/api/routes', require('./routes/routes'));
 
 app.use(express.static(path.resolve(__dirname, '..', 'build')));
 

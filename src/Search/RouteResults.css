@@ -1,0 +1,21 @@
+.RouteResults {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 700px) {
+  .RouteResults header {
+    padding-left: 0;
+  }
+}
+
+.RouteResults h2 {
+  width: 100%;
+  border-bottom: 1px solid #DDD;
+}
+
+.RouteResults .results {
+  flex: 1;
+  overflow: scroll;
+}
