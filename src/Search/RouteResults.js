@@ -16,7 +16,9 @@ export default class RouteResults extends Component {
     axios.get('api/routes')
       .then(response => {
         this.setState({ routes: response.data })
-        console.log(response);
+      })
+      .catch(err => {
+        console.log(err);
       })
   }
 
