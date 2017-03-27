@@ -1,11 +1,12 @@
 nav.Header {
-  width: 100%;
   height: 80px;
   border-bottom: 1px solid #DDD;
   position: relative;
   z-index: 99;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
 }
 
 .Header .logo {
@@ -13,16 +14,22 @@ nav.Header {
   justify-content: center;
   align-items: center;
   height: 100%;
+  cursor: pointer;
+}
+
+.Header .logo h1 {
+  font-weight: 500;
+  color: #222;
+  letter-spacing: 1px;
 }
 
 .Header .logo img {
-  height: 40px;
-  margin: 0 20px;
+  height: 35px;
+  margin: 0 15px;
 }
 
 .Header .navbar {
   display: flex;
-  flex: 1;
   height: 100%;
   justify-content: center;
 }
@@ -51,6 +58,11 @@ nav.Header {
 @media (max-width: 700px) {
   nav.Header {
     height: 60px;
+    justify-content: center;
+  }
+
+  .Header .logo h1 {
+    display: none;
   }
 
   .Header .logo img {

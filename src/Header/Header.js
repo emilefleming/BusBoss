@@ -5,10 +5,11 @@ import { Link } from 'react-router-dom';
 export default function Header(props) {
   return (
     <nav className="Header">
+      <div className="logo" onClick={ props.toggleNav }>
+        <h1>BusBoss</h1>
+        <img src="/icons/logo.svg" alt="Logo"/>
+      </div>
       <div className="navbar">
-        <div className="logo">
-          <img src="/icons/logo.svg" alt="Logo"/>
-        </div>
         <Link to="/map"><div className="navItem">Map</div></Link>
         <Link to="/favorites"><div className="navItem">Favorites</div></Link>
         {
