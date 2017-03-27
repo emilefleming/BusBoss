@@ -73,7 +73,6 @@ export default class Nearby extends Component {
   }
 
   setUserPosition({ coords }) {
-    console.log('user position');
     const lat = coords.latitude;
     const lng = coords.longitude;
 

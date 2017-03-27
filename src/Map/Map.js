@@ -65,7 +65,6 @@ export default class Map extends Component {
   }
 
   render() {
-    console.log('map render');
     const {
       arrivals,
       onMarkerClick,
