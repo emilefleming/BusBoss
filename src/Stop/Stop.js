@@ -35,7 +35,6 @@ export default class Stop extends Component {
   }
 
   componentWillUnmount() {
-    console.log(this.props.oldId);
     socket.emit('leave', {
       room: `stop-${this.props.oldId}`
     });
@@ -45,14 +44,11 @@ export default class Stop extends Component {
   }
 
   changeStop(location) {
-    console.log('change stop');
     const stopId = location.pathname.slice(11)
     const { oldId } = this.props;
 
     this.props.setClickedTrip(null);
 
-    console.log(stopId);
-    console.log(oldId);
     if (stopId && stopId !== oldId) {
       socket.emit('room', {
         room: `stop-${stopId}`,
