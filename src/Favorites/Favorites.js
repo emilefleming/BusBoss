@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Favorite from './Favorite';
-import './Favorites.css'
+import './Favorites.css';
+import Loader from '../Loader/Loader';
 
 import moment from 'moment';
 import io from 'socket.io-client';
@@ -11,7 +12,7 @@ export default class Favorites extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { favorites: [] }
+    this.state = { favorites: [], loader: true };
 
     this.removeFavorite = this.removeFavorite.bind(this);
 
@@ -60,14 +61,17 @@ export default class Favorites extends Component {
   }
 
   updateFavorites() {
+    console.log('updateFavorites');
     axios.get(`/api/favorites/${this.props.userData.id}`)
     .then(response => {
-      for (const favorite of response.data) {
+      const favorites = response.data;
+      for (const favorite of favorites) {
         socket.emit('room', {
           room: `stop-${favorite.data.entry.id}`
         });
       }
-      this.setState({ favorites: response.data, isLoaded: true, animate: true })
+      this.setState({
+        favorites, loader: false, animate: true })
     })
     .catch(err => {
       console.log(err);
@@ -90,6 +94,7 @@ export default class Favorites extends Component {
   }
 
   render() {
+    console.log('render');
     return (
       <div className="Favorites">
         <div className="loader">
@@ -108,9 +113,14 @@ export default class Favorites extends Component {
           }
         </div>
         {
-          !this.state.favorites.length
+          !this.state.favorites.length && !this.state.loader
             ? <div className="noFavorites"><h2>You don't have any favorites yet!</h2><div>You can add both stops and routes.</div></div>
             : null
+        }
+        {
+          this.state.loader
+          ? <Loader />
+          : null
         }
       </div>
     )
