@@ -1,7 +1,8 @@
-import React from 'react'
+import React from 'react';
 import Arrival from '../Arrival/Arrival';
 import './Arrivals.css';
-import Icon from '../Icon/Icon'
+import Icon from '../Icon/Icon';
+import Loader from '../Loader/Loader';
 import FavoriteButton from '../Favorites/FavoriteButton';
 import StopHeader from './StopHeader';
 
@@ -17,7 +18,8 @@ export default function Arrivals(props) {
     favorites,
     toggleFavorite,
     routerProps,
-    centerMap
+    centerMap,
+    loader
   } = props;
 
   const isFavorite = favorites.reduce((acc, favorite) => {
@@ -56,11 +58,16 @@ export default function Arrivals(props) {
           )
         }
         {
-          !arrivals.length
+          !arrivals.length && !loader
             ? <div className="noArrivals">
                 No departures in the next 30 minutes
               </div>
             : null
+        }
+        {
+          loader
+          ? <Loader />
+          : null
         }
       </div>
       <FavoriteButton

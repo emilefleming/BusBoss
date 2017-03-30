@@ -29,7 +29,8 @@ export default class Nearby extends Component {
       arrivals: [],
       activeStop: {},
       tripStops: [],
-      activeTripStop: {}
+      activeTripStop: {},
+      arrivalsLoader: true
     };
 
     this.onMarkerClick = this.onMarkerClick.bind(this);
@@ -88,7 +89,7 @@ export default class Nearby extends Component {
   }
 
   linkToStop(stop) {
-    this.setState({ activeStop: stop })
+    this.setState({ activeStop: stop, arrivalsLoader: true })
     this.props.routeProps.history.push(`/map/stops/${stop.id}`);
   }
 
@@ -100,14 +101,15 @@ export default class Nearby extends Component {
           oldId: this.state.activeStop.id || activeStop.id,
           arrivals,
           lastUpdated: moment(),
-          animate: true
+          animate: true,
+          arrivalsLoader: false
         });
       }, 0)
     })
   }
 
   clearActiveStop() {
-    this.setState({ activeStop: {}, arrivals: []})
+    this.setState({ activeStop: {}, arrivals: [], arrivalsLoader: true})
   }
 
   setHoverTrip(arrival) {
@@ -287,7 +289,8 @@ export default class Nearby extends Component {
       animate,
       favorites,
       markers,
-      oldId
+      oldId,
+      arrivalsLoader
     } = this.state;
 
     return (
@@ -330,6 +333,7 @@ export default class Nearby extends Component {
                     centerMap={ centerMap }
                     clearActiveStop={ clearActiveStop }
                     oldId={ oldId }
+                    loader={ arrivalsLoader }
                   />
                 }
               />

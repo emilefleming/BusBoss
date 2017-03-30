@@ -87,7 +87,8 @@ export default class Stop extends Component {
       arrivals,
       lastUpdated,
       animate,
-      centerMap
+      centerMap,
+      loader
     } = this.props;
 
     return (
@@ -120,6 +121,7 @@ export default class Stop extends Component {
                 toggleFavorite={ toggleFavorite }
                 routerProps={ props }
                 centerMap={ centerMap }
+                loader={ loader }
               />
           }
         />
