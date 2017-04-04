@@ -61,7 +61,6 @@ export default class Favorites extends Component {
   }
 
   updateFavorites() {
-    console.log('updateFavorites');
     axios.get(`/api/favorites/${this.props.userData.id}`)
     .then(response => {
       const favorites = response.data;
@@ -94,7 +93,6 @@ export default class Favorites extends Component {
   }
 
   render() {
-    console.log('render');
     return (
       <div className="Favorites">
         <div className="loader">
