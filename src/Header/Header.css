@@ -42,13 +42,19 @@ nav.Header {
   height: 100%;
   cursor: pointer;
   display: flex;
-  align-items: center;}
+  align-items: center;
+}
+
 
 .Header a {
   display: flex;
   align-items: center;
   color: inherit;
   text-decoration: none;
+}
+
+.Header a.active .navItem {
+  color: #AAA;
 }
 
 .Header a:hover, .Header .navItem:hover {
