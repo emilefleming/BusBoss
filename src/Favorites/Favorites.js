@@ -39,6 +39,8 @@ export default class Favorites extends Component {
   componentDidMount() {
     if (this.props.userData) {
       this.updateFavorites();
+    } else {
+      this.setState({ loader: false })
     }
   };
 
@@ -47,8 +49,9 @@ export default class Favorites extends Component {
       return;
     }
 
-    this.setState({ isLoaded: true })
-    this.updateFavorites()
+    if (this.props.userData) {
+      this.updateFavorites()
+    }
   }
 
   componentWillUnmount() {
@@ -70,7 +73,7 @@ export default class Favorites extends Component {
         });
       }
       this.setState({
-        favorites, loader: false, animate: true })
+        favorites, loader: false, animate: true, isLoaded: true })
     })
     .catch(err => {
       console.log(err);
@@ -93,26 +96,36 @@ export default class Favorites extends Component {
   }
 
   render() {
+    const { props, state } = this;
     return (
       <div className="Favorites">
         <div className="loader">
           <div className={`loadBar ${this.state.animate ? 'loadAnimation' : ''}`}></div>
         </div>
-        <div className="favoriteCards">
-          {
-            this.state.favorites.map(favorite =>
-              <Favorite
-                key={favorite.id}
-                favorite={ favorite }
-                removeFavorite={ this.removeFavorite }
-                history={ this.props.history }
-              />
-            )
-          }
-        </div>
         {
-          !this.state.favorites.length && !this.state.loader
+          state.favorites.length
+          ? <div className="favoriteCards">
+              {
+                state.favorites.map(favorite =>
+                  <Favorite
+                    key={favorite.id}
+                    favorite={ favorite }
+                    removeFavorite={ this.removeFavorite }
+                    history={ props.history }
+                  />
+                )
+              }
+            </div>
+          : null
+        }
+        {
+          !state.favorites.length && !state.loader && props.userData
             ? <div className="noFavorites"><h2>You don't have any favorites yet!</h2><div>You can add both stops and routes.</div></div>
+            : null
+        }
+        {
+          !state.favorites.length && !state.loader && !props.userData
+            ? <div className="noFavorites"><h2>You muse be logged in to save favorites</h2></div>
             : null
         }
         {
